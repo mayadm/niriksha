@@ -19,6 +19,18 @@
 			<div id="logo">
 				<h1><a href="<?php echo site_url()?>/niriksha"><?php echo $this->config->item('softname');?></a></h1>
 				<p><?php echo $this->config->item('slogan');?></p>
+				
+				<p> 
+				  <?php
+				    $name = $this->session->userdata('name');
+				    $site = site_url();
+				    $id = $this->session->userdata('id');
+				    if ($name != "" ){
+				    echo "Welcome back, <a href=\"$site/niriksha/profile/$id\" style=\"color:red;\">$name</a>";
+				    }
+				  ?>
+				</p>
+				
 			</div>
 			<div id="menu">
 			<?php $now = $this->uri->segment(2);?>

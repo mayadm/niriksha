@@ -33,12 +33,14 @@ class System_user extends Model {
 	     $row = $query->row_array();
 	     if ($row['user'] == $user  && $row['pw'] == $encpass){
 	        $level = $row['level'];
-	        $id = $row['ROWID'];
+	        $id = $row['id_user'];
+	        $name = $row['name'];
 	        $login = array(
                     'username' => $user,
                     'password' => $encpass,
                     'level' => $level,
-                    'id' => $id
+                    'id' => $id,
+                    'name' => $name 
                         );
             $this->session->set_userdata($login);
             return 1;
@@ -56,6 +58,18 @@ class System_user extends Model {
      $this->load->view('error',$message);
      $this->load->view('sidebar');
      $this->load->view('footer');
+     }
+     
+     function user_profile($id){
+     $this->db->reconnect();
+     $query = $this->db->query("select * from user where id_user=$id");
+     $row = $query->row_array();
+     $data['name'] = $row['name'];
+     $data['nip'] = $row['nip'];
+     $data['id_div'] = $row['id_div'];
+     $data['id_jab'] = $row['id_jab'];
+     $data['email'] = $row['email'];
+     return $data;
      }
 }
 ?>

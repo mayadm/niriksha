@@ -66,6 +66,15 @@ class Niriksha extends Controller {
 		$this->load->view('footer');
 	}
 	
+	function profile($id)
+	{
+	        $data = $this->system_user->user_profile($id);
+		$this->load->view('header');
+		$this->load->view('profile',$data);
+		$this->load->view('sidebar');
+		$this->load->view('footer');
+	}
+	
 	 function logout(){
          $this->session->sess_destroy();
          redirect('niriksha');
