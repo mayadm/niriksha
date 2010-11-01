@@ -3,8 +3,11 @@
 			<div id="page-bgbtm">
 				<div id="content">
 					<div class="post">
-						<h2 class="title">Welcome to Niriksha</h2>
+						<h2 class="title">welcome to niriksha</h2>
 						<div class="entry" style="height:215px;">
+						<br><p>you may watch surveillance live streaming <a href="#">here</a>.</p>
+						<p>or <a href="#">login</a> first to share video and create conference.</p>
+						<p>if you dont't have account yet, please <a href="#">sign up</a></p> 
 							
 						</div>
 					</div>
