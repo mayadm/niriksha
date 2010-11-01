@@ -33,6 +33,11 @@ h3 {
 	font-size: 1.6em;
 }
 
+h3.error {
+	font-size: 1.6em;
+        color: red;
+}
+
 p, ul, ol {
 	margin-top: 0;
 	line-height: 180%;

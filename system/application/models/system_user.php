@@ -44,10 +44,18 @@ class System_user extends Model {
             return 1;
 	  }else if ($row['pw'] != $encpass){
 	   return 2;
+           }
+          }else if ($query->num_rows() == 0){
+         return 0;
       }
-      }else if ($query->num_rows() == 0){
-       return 0;
       }
-      }
+
+     function system_error($error){
+     $message['error'] = $error;
+     $this->load->view('header');
+     $this->load->view('error',$message);
+     $this->load->view('sidebar');
+     $this->load->view('footer');
+     }
 }
 ?>
