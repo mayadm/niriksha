@@ -71,7 +71,7 @@ class Niriksha extends Controller {
 	        $data = $this->system_user->user_profile($id);
 		$this->load->view('header');
 		$this->load->view('profile',$data);
-		$this->load->view('sidebar');
+		//$this->load->view('sidebar');
 		$this->load->view('footer');
 	}
 	

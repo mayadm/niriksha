@@ -10,7 +10,8 @@
 <link href="<?php echo base_url()?>style/redmond/jquery-ui.css" rel="stylesheet" type="text/css" media="screen" />
 <script src="<?php echo base_url()?>style/jquery.js" type="text/javascript"></script>
 <script src="<?php echo base_url()?>style/jquery-ui.js" type="text/javascript"></script>
-
+<script src="<?php echo base_url()?>style/select-jquery.js" type="text/javascript"></script>
+<script src="<?php echo base_url()?>style/ajaxnav.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="wrapper">

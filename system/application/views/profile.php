@@ -1,23 +1,23 @@
-	<div id="page">
+	<?php
+	  $id = $this->session->userdata('id');
+	  $this->db->reconnect();
+	  $query = $this->db->query("select phone,email,nama_div,nama_jab,level from user u,divisi d,jabatan j where id_user=$id and u.id_div=d.id_div and u.id_jab=j.id_jab");
+	  $row = $query->row_array();
+	  $level = $row['level'];
+	  $jabatan = $row['nama_jab'];
+	  $div = $row['nama_div'];
+	  $email = $row['email'];
+	  $phone = $row['phone'];
+	 ?><div id="page">
 		<div id="page-bgtop">
 			<div id="page-bgbtm">
 				<div id="content">
 					<div class="post">
 						<h2 class="title">Welcome Home <?php echo $name;?></h2>
-						<div class="entry" style="height:215px;">
+						<div class="entry" style="height:<?php if($level == "admin"){ echo 540;} else echo 215; ?>px;">
 						<p>
-						 <?php
-						  $id = $this->session->userdata('id');
-						  $this->db->reconnect();
-						  $query = $this->db->query("select phone,email,nama_div,nama_jab,level from user u,divisi d,jabatan j where id_user=$id and u.id_div=d.id_div and u.id_jab=j.id_jab");
-						  $row = $query->row_array();
-						  $level = $row['level'];
-						  $jabatan = $row['nama_jab'];
-						  $div = $row['nama_div'];
-						  $email = $row['email'];
-						  $phone = $row['phone'];
-						 ?>
-						  <table cellpadding="15">
+						
+						  <table cellpadding="10">
 						    <tr><td>Your Sure Name</td><td>:</td><td><?php echo $name;?></td></tr>
 						    <tr><td>Your Position</td><td>:</td><td><?php echo $jabatan;?></td></tr>
 						    <tr><td>Your Email Address</td><td>:</td><td><?php echo $email;?></td></tr>
@@ -25,64 +25,15 @@
 						    <tr><td>Your Departement</td><td>:</td><td><?php echo $div;?> Departement</td></tr>
 						    <tr><td> <input type="button" id="edit-pass" value="Edit Password"></td><td></td><td> <input type="button" id="edit-profile" value="Edit Profile"></td></tr>
 						  </table>
-						</p>
+						</p>  
+						<?php if($level == "admin"){ $this->load->view('admin');}?>
 						<p>
-						<script>
-						$(function() {
-
-                                           	$("#user_profile").dialog({
-			                          autoOpen: false,
-						  height: 300,
-						  width: 400,
-						  show: 'puff',
-						  hide: 'explode',
-						  draggable: false,
-						  resizable: false,
-						  modal: true
-						
-						  });
-						  
-						 $('#edit-profile')
-			                          .button()
-			                          .click(function() {
-				                  $('#user_profile').dialog('open');
-		                                 });
-		                                 
-		                                 $("#user_pass").dialog({
-			                          autoOpen: false,
-						  height: 220,
-						  width: 350,
-						  show: 'puff',
-						  hide: 'explode',
-						  draggable: false,
-						  resizable: false,
-						  modal: true
-						  });
-						 $('#edit-pass')
-			                          .button()
-			                          .click(function() {
-				                  $('#user_pass').dialog('open');
-		                                 });
-		                                 $('#profile')
-			                          .button()
-			                          .click(function() {
-				                   $("#form-profile").submit();
-		                                 });
-		                                 $('#pass')
-			                          .button()
-			                          .click(function() {
-				                   $("#form-profile").submit();
-		                                 });
-		                               });
-						</script>
-
-
-
                                           <div id="user_profile" style="display: none;">
+                                        
                                                     <form action="#" method="POST" id="form_profile">
                                                     <table cellpadding="5">
 						    <tr><td>Your Sure Name</td><td>:</td><td><input type="text" name="name" value="<?php echo $name;?>"/></td></tr>
-						    <tr><td>Your Position</td><td>:</td><td><select name="jabatan"><?php
+						    <tr><td>Your Position</td><td>:</td><td><select name="jabatan" id="jab" class="ui-select-menu"><?php
 						                                           $list = $this->db->query("select * from jabatan");
                                                                                            foreach ($list->result_array() as $row)
                                                                                            { 
@@ -116,7 +67,9 @@
 						  </table>
 						  </form>
                                           </div>
+                                          
 						</p>
+						
 						</div>
 				
 				</div>
