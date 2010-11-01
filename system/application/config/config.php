@@ -325,6 +325,6 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 $config['softname'] = "Niriksha";
-
+$config['slogan'] = "Am with Pig";
 /* End of file config.php */
 /* Location: ./system/application/config/config.php */
