@@ -8,9 +8,11 @@
 						<div style="clear: both;">&nbsp;</div>
 						<div class="entry" style="height:215px;">
 							<p>This is <strong>Niriksha</strong>, a web based application for video sharing managemen.</p> 
+						<div class="entry">
+							<p>This is <strong>Niriksha</strong>, a web based application for video sharing management.</p> 
 
 <p>Here you can see video surveillance live streaming, share video with others and create conference. </p>
-<p>This application made on Ubuntu 10.04, use PHP5, sqlite, flowplayer and VLC.</p>
+<p>This application made on Ubuntu 10.04, use code igniter, sqlite, flowplayer and VLC.</p>
 <p>You might email me to anakkecilbaikhati@gmail.com, if you want to know the script. </p>
 							
 						</div>
