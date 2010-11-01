@@ -4,7 +4,8 @@ class Niriksha extends Controller {
 
 	function Niriksha()
 	{
-		parent::Controller();	
+		parent::Controller();
+		
 	}
 	
 	function index()
@@ -25,6 +26,7 @@ class Niriksha extends Controller {
 	
 	function video()
 	{
+		$this->system_user->check_session('video');
 		$this->load->view('header');
 		$this->load->view('video');
 		$this->load->view('sidebar');
@@ -33,6 +35,7 @@ class Niriksha extends Controller {
 	
 	function conference()
 	{
+		$this->system_user->check_session('conference');
 		$this->load->view('header');
 		$this->load->view('conference');
 		$this->load->view('sidebar');
