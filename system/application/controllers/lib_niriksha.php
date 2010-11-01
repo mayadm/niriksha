@@ -12,9 +12,9 @@ class Lib_niriksha extends Controller {
 		echo "Hallo aku lib Melihatlihat";
 	}
 	
-	function search($location)
+	function login($before)
 	{
-		echo "Hallo aku lib Melihatlihat";
+		redirect("/niriksha/$before");
 	}
 	
 }
