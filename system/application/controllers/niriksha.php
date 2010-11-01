@@ -65,6 +65,11 @@ class Niriksha extends Controller {
 		$this->load->view('sidebar');
 		$this->load->view('footer');
 	}
+	
+	 function logout(){
+         $this->session->sess_destroy();
+         redirect('niriksha');
+         }
 }
 
 /* End of file welcome.php */

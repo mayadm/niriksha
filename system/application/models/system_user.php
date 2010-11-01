@@ -11,10 +11,9 @@ class System_user extends Model {
       $user = $this->session->userdata('username');
       $password = $this->session->userdata('password');
       $level = $this->session->userdata('level');
-      $id = $this->session->userdata('id');
-      if ($user != "" && $password != "" && $level!= "" && $id != ""){
+      if ($user != "" && $password != ""){
           $this->db->reconnect();
-          $query = $this->db->query("select * from user where user like '$user' and level like '$level' and pw like '$password' and ROWID = $id");
+          $query = $this->db->query("select * from user where user like '$user' and pw like '$password'");
           if ($query->num_rows() > 0){
              $now = $this->uri->segment(2);
              if ($now != $before){
@@ -33,11 +32,13 @@ class System_user extends Model {
 	 if ($query->num_rows() > 0){
 	     $row = $query->row_array();
 	     if ($row['user'] == $user  && $row['pw'] == $encpass){
+	        $level = $row['level'];
+	        $id = $row['ROWID'];
 	        $login = array(
                     'username' => $user,
                     'password' => $encpass,
                     'level' => $level,
-                    'id' => $row['ROWID']
+                    'id' => $id
                         );
             $this->session->set_userdata($login);
             return 1;

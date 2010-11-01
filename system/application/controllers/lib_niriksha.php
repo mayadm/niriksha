@@ -20,7 +20,7 @@ class Lib_niriksha extends Controller {
 		$valid = $this->system_user->user_login($user,$password);
 		if ($valid == 1 ){
 			redirect("/niriksha/$before"); 
-	    }else if ( $valid == 2){
+	        }else if ( $valid == 2){
 			redirect("/niriksha/login");
 		}else echo "user name nya nggak ada";
 		
