@@ -207,7 +207,13 @@ a:hover {
 
 #content {
 	float: left;
-	width: 650px;
+	width: 700px;
+	padding: 0px 0px 0px 0px;
+}
+
+#content-profile {
+	float: left;
+	width: 950px;
 	padding: 0px 0px 0px 0px;
 }
 

@@ -48,6 +48,24 @@
 				                  $('#position').dialog('open');
 		                                 }); 
 						  
+						    $("#user").dialog({
+			                          autoOpen: false,
+						  height: 350,
+						  width: 350,
+						  show: 'puff',
+						  hide: 'explode',
+						  draggable: false,
+						  resizable: false,
+						  modal: true
+						
+						  });
+						  
+						 $('#add_user')
+			                          .button()
+			                          .click(function() {
+				                  $('#user').dialog('open');
+		                                 }); 
+						 
 						 $('#edit-profile')
 			                          .button()
 			                          .click(function() {
@@ -89,6 +107,12 @@
 			                          .button()
 			                          .click(function() {
 				                   $("#form-divis").submit();
+		                                 });
+						 
+						 $('#useradd')
+			                          .button()
+			                          .click(function() {
+				                   $("#form-user").submit();
 		                                 });
 						 
 						  $('#jabatan')

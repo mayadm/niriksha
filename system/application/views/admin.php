@@ -19,15 +19,37 @@
                    echo "<tr><td>$username</td><td>$nip</td><td>$email</td><td>$name</td><td>$phone</td><td>$div</td><td>$jabatan</td><td>Edit | Delete</td></tr>";
                    }                                                                        
 		?></tbody></table>
-		    <div id="division" style="display: none;">
-                                                    <form action="#" method="POST" id="form_divisi">
+		    <div id="user" style="display: none;" title="Adding User Into System">
+                                                    <form action="#" method="POST" id="form-user">
                                                     <table cellpadding="5">
-						    <tr><td>Name Of Divisions</td><td>:</td><td><input type="text" name="divisi"></td></tr>
-						    <tr><td></td><td></td><td><input type="submit" id="divisi" value="Add Divisions"></td></tr>
+						    <tr><td>Username</td><td>:</td><td><input type="text" name="username"></td></tr>
+						    <tr><td>Password</td><td>:</td><td><input type="text" name="password"></td></tr>
+						    <tr><td>Surename</td><td>:</td><td><input type="text" name="name"></td></tr>
+						    <tr><td>Email</td><td>:</td><td><input type="text" name="email"></td></tr>
+						    <tr><td>Phone</td><td>:</td><td><input type="text" name="phone"></td></tr>
+						    <tr><td>Position</td><td>:</td><td><select name="jabatan"><?php
+						                                           $list = $this->db->query("select * from jabatan");
+                                                                                           foreach ($list->result_array() as $row)
+                                                                                           { 
+                                                                                             $id = $row['id_jab'];
+                                                                                             $jab =$row['nama_jab'];
+                                                                                             echo "<option value=\"$id\">$jab</option>";
+                                                                                           }
+	 					                                        ?></select></td></tr>
+						    <tr><td>Division</td><td>:</td><td><select name="divisi"><?php
+						                                           $list = $this->db->query("select * from divisi");
+                                                                                           foreach ($list->result_array() as $row)
+                                                                                           { 
+                                                                                             $id_div = $row['id_div'];
+                                                                                             $div =$row['nama_div'];
+                                                                                             echo "<option value=\"$id_div\">$div</option>";
+                                                                                           }
+	 					                                        ?></select> </td></tr>
+						    <tr><td></td><td></td><td><input type="submit" id="useradd" value="Add User"></td></tr>
 						  </table>
 						  </form>
                                           </div>
-		 <input type="button" id="add_div" value="Add Division">
+		 <input type="button" id="add_user" value="Add User">
 		</p>
 	</div>
 	<h3><a href="#">Division Editor</a></h3>
@@ -44,7 +66,7 @@
                    echo "<tr><td>$div</td><td>Edit | Delete</td></tr>";
                    }                                                                        
 		?></tbody></table>
-		    <div id="division" style="display: none;">
+		    <div id="division" style="display: none;" title="Adding Division">
                                                     <form action="#" method="POST" id="form_divisi">
                                                     <table cellpadding="5">
 						    <tr><td>Name Of Divisions</td><td>:</td><td><input type="text" name="divisi"></td></tr>
@@ -69,7 +91,7 @@
                    echo "<tr><td>$jab</td><td>Edit | Delete</td></tr>";
                    }                                                                        
 		?></table>
-		    <div id="position" style="display: none;">
+		    <div id="position" style="display: none;" title="Adding Potision">
                                                     <form action="#" method="POST" id="form_jabatan">
                                                     <table cellpadding="5">
 						    <tr><td>Name Of Divisions</td><td>:</td><td><input type="text" name="jabatan"></td></tr>
