@@ -56,7 +56,7 @@ class System_user extends Model {
      $message['error'] = $error;
      $this->load->view('header');
      $this->load->view('error',$message);
-     $this->load->view('sidebar');
+     //$this->load->view('sidebar');
      $this->load->view('footer');
      }
      

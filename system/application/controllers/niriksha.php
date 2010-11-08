@@ -66,8 +66,10 @@ class Niriksha extends Controller {
 		$this->load->view('footer');
 	}
 	
-	function profile($id)
-	{
+	function profile()
+	{      
+	        $id = $this->session->userdata('id');
+	        $this->system_user->check_session("profile");
 	        $data = $this->system_user->user_profile($id);
 		$this->load->view('header');
 		$this->load->view('profile',$data);

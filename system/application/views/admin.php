@@ -20,10 +20,11 @@
                    }                                                                        
 		?></tbody></table>
 		    <div id="user" style="display: none;" title="Adding User Into System">
-                                                    <form action="#" method="POST" id="form-user">
+                                                    <form action="<?php echo site_url();?>/lib_niriksha/add_user" method="POST" id="form-user">
                                                     <table cellpadding="5">
 						    <tr><td>Username</td><td>:</td><td><input type="text" name="username"></td></tr>
 						    <tr><td>Password</td><td>:</td><td><input type="text" name="password"></td></tr>
+						    <tr><td>NIP</td><td>:</td><td><input type="text" name="nip"></td></tr>
 						    <tr><td>Surename</td><td>:</td><td><input type="text" name="name"></td></tr>
 						    <tr><td>Email</td><td>:</td><td><input type="text" name="email"></td></tr>
 						    <tr><td>Phone</td><td>:</td><td><input type="text" name="phone"></td></tr>
@@ -110,11 +111,6 @@
 		et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
 		faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
 		mauris vel est.
-		</p>
-		<p>
-		Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
-		Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-		inceptos himenaeos.
 		</p>
 	</div>
 </div>
