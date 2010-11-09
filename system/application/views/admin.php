@@ -19,7 +19,7 @@
                    echo "<tr><td>$username</td><td>$nip</td><td>$email</td><td>$name</td><td>$phone</td><td>$div</td><td>$jabatan</td><td>Edit | Delete</td></tr>";
                    }                                                                        
 		?></tbody></table>
-		    <div id="user" style="display: none;" title="Adding User Into System">
+		    <div id="user" style="display: none;" title="Add New User">
                                                     <form action="<?php echo site_url();?>/lib_niriksha/add_user" method="POST" id="form-user">
                                                     <table cellpadding="5">
 						    <tr><td>Username</td><td>:</td><td><input type="text" name="username"></td></tr>
@@ -67,11 +67,11 @@
                    echo "<tr><td>$div</td><td>Edit | Delete</td></tr>";
                    }                                                                        
 		?></tbody></table>
-		    <div id="division" style="display: none;" title="Adding Division">
-                                                    <form action="#" method="POST" id="form_divisi">
+		    <div id="division" style="display: none;" title="Add Division">
+                                                    <form action="<?php echo site_url();?>/lib_niriksha/add_divisi" method="POST" id="form_divisi">
                                                     <table cellpadding="5">
 						    <tr><td>Name Of Divisions</td><td>:</td><td><input type="text" name="divisi"></td></tr>
-						    <tr><td></td><td></td><td><input type="submit" id="divisi" value="Add Divisions"></td></tr>
+						    <tr><td></td><td></td><td><input type="submit" id="divisi" value="Add Division"></td></tr>
 						  </table>
 						  </form>
                                           </div>
@@ -92,15 +92,15 @@
                    echo "<tr><td>$jab</td><td>Edit | Delete</td></tr>";
                    }                                                                        
 		?></table>
-		    <div id="position" style="display: none;" title="Adding Potision">
-                                                    <form action="#" method="POST" id="form_jabatan">
+		    <div id="position" style="display: none;" title="Add Potision">
+                                                    <form action="<?php echo site_url();?>/lib_niriksha/add_position" method="POST" id="form_jabatan">
                                                     <table cellpadding="5">
-						    <tr><td>Name Of Divisions</td><td>:</td><td><input type="text" name="jabatan"></td></tr>
-						    <tr><td></td><td></td><td><input type="submit" id="jabatan" value="Add Positions"></td></tr>
+						    <tr><td>New Position</td><td>:</td><td><input type="text" name="jabatan"></td></tr>
+						    <tr><td></td><td></td><td><input type="submit" id="jabatan" value="Add"></td></tr>
 						  </table>
 						  </form>
                                           </div>
-		 <input type="button" id="add_pos" value="Add Positions">
+		 <input type="button" id="add_pos" value="Add Position">
 		</p>
 	</div>
 	

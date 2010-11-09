@@ -17,17 +17,17 @@
 			<div id="page-bgbtm">
 				<div id="content-profile">
 					<div class="post">
-						<h2 class="title">Welcome Home <?php echo $name;?></h2>
+						<h2 class="title">Welcome Home, <?php echo $name;?></h2>
 						<div class="entry" style="height:<?php if($level == "admin"){ echo 540;} else echo 215; ?>px;">
 						<p>
 						
 						  <table cellpadding="10">
-						    <tr><td>Your Sure Name</td><td>:</td><td><?php echo $name;?></td></tr>
-						    <tr><td>Your Position</td><td>:</td><td><?php echo $jabatan;?></td></tr>
-						    <tr><td>Your NIP</td><td>:</td><td><?php echo $nip;?></td></tr>
-						    <tr><td>Your Email Address</td><td>:</td><td><?php echo $email;?></td></tr>
-						    <tr><td>Your Phone</td><td>:</td><td><?php echo $phone;?></td></tr>
-						    <tr><td>Your Departement</td><td>:</td><td><?php echo $div;?> Departement</td></tr>
+						    <tr><td>Sure Name</td><td>:</td><td><?php echo $name;?></td></tr>
+						    <tr><td>Position</td><td>:</td><td><?php echo $jabatan;?></td></tr>
+						    <tr><td>NIP</td><td>:</td><td><?php echo $nip;?></td></tr>
+						    <tr><td>Email Address</td><td>:</td><td><?php echo $email;?></td></tr>
+						    <tr><td>Phone</td><td>:</td><td><?php echo $phone;?></td></tr>
+						    <tr><td>Division</td><td>:</td><td><?php echo $div;?> Division</td></tr>
 						    <tr><td> <input type="button" id="edit-pass" value="Edit Password"></td><td></td><td> <input type="button" id="edit-profile" value="Edit Profile"></td></tr>
 						  </table>
 						</p>  

@@ -83,4 +83,18 @@ class Lib_niriksha extends Controller {
 	   }
 	}
 	
+	function add_divisi(){
+	   $divisi = $this->input->post('divisi');
+	   $this->db->reconnect();
+	   $this->db->query("insert into divisi(nama_div) values('$divisi')");	
+	   redirect("/niriksha/profile/");
+	}
+	
+	function add_position(){
+	   $jabatan = $this->input->post('jabatan');
+	   $this->db->reconnect();
+	   $this->db->query("insert into jabatan(nama_jab) values('$jabatan')");	
+	   redirect("/niriksha/profile/");
+	}
+	
 }
