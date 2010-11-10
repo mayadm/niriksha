@@ -97,4 +97,37 @@ class Lib_niriksha extends Controller {
 	   redirect("/niriksha/profile/");
 	}
 	
+	function delete_user($id){
+	 if ( $id != "1"){
+	 $this->db->query("delete from user where id_user=$id");	
+	 redirect("/niriksha/profile/");
+	 }else if ( $id == "1"){
+	   $this->system_user->system_error("You can't DELETE Administrator !!!!");
+	 }	 
+	}
+	
+	function edit_div($id){
+	   $divisi = $this->input->post('new_div');
+	   $this->db->reconnect();
+	   $this->db->query("update divisi set nama_div='$divisi' where id_div=$id");	
+	   redirect("/niriksha/profile/");
+	}
+	
+	function delete_div($id){
+	 $this->db->query("delete from divisi where id_div=$id");	
+	 redirect("/niriksha/profile/");
+	 }
+	 
+	 function edit_pos($id){
+	   $jabatan = $this->input->post('new_jab');
+	   $this->db->reconnect();
+	   $this->db->query("update jabatan set nama_jab='$jabatan' where id_jab=$id");	
+	   redirect("/niriksha/profile/");
+	}
+	
+	function delete_pos($id){
+	 $this->db->query("delete from jabatan where id_jab=$id");	
+	 redirect("/niriksha/profile/");
+	 }
+	
 }

@@ -69,6 +69,9 @@ class System_user extends Model {
      $data['id_div'] = $row['id_div'];
      $data['id_jab'] = $row['id_jab'];
      $data['email'] = $row['email'];
+     $data['phone'] = $row['phone'];
+     $data['id'] = $id;
+     $data['user'] = $row['user'];
      return $data;
      }
 }

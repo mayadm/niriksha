@@ -6,17 +6,21 @@
 		<table cellpadding="4" class="perlu">
 		<tr><th>Username</th><th>Nip</th><th>email</th><th>Name</th><th>Phone</th><th>Division</th><th>Positions</th><th>Action</th></tr>
 		<?php
-                   $list = $this->db->query("select user,nip,email,phone,name,nama_div,nama_jab from user u,jabatan j,divisi d where u.id_div=d.id_div and j.id_jab=u.id_jab");
+                   $list = $this->db->query("select id_user,user,nip,email,phone,name,nama_div,nama_jab from user u,jabatan j,divisi d where u.id_div=d.id_div and j.id_jab=u.id_jab");
                    foreach ($list->result_array() as $row)
                    { 
                    $username = $row['user'];
+                   $id = $row['id_user'];
                    $nip = $row['nip'];
                    $email = $row['email'];
                    $name = $row['name'];
                    $phone = $row['phone'];
                    $div = $row['nama_div'];
                    $jabatan = $row['nama_jab'];
-                   echo "<tr><td>$username</td><td>$nip</td><td>$email</td><td>$name</td><td>$phone</td><td>$div</td><td>$jabatan</td><td>Edit | Delete</td></tr>";
+                   $site = site_url();
+                   echo "<tr><td>$username</td><td>$nip</td><td>$email</td><td>$name</td><td>$phone</td><td>$div</td><td>$jabatan</td><td>";
+                   echo "<a title=\"Edit user $username\" class=\"edit_user\" href=\"$site/niriksha/edit_user/$id\">Edit</a> |";
+                   echo "<a title=\"Delete user $username\" class=\"delete_user\" href=\"$site/niriksha/delete_user/$id\">Delete</a> </td></tr>";
                    }                                                                        
 		?></tbody></table>
 		    <div id="user" style="display: none;" title="Add New User">
@@ -64,7 +68,9 @@
                    { 
                    $id = $row['id_div'];
                    $div =$row['nama_div'];
-                   echo "<tr><td>$div</td><td>Edit | Delete</td></tr>";
+                   echo "<tr><td>$div</td><td>";
+                   echo "<a title=\"Edit Divison $div\" class=\"edit_div\" href=\"$site/niriksha/edit_div/$id\">Edit</a> |";
+                   echo "<a title=\"Delete user $div\" class=\"delete_div\" href=\"$site/niriksha/delete_div/$id\">Delete</a> </td></tr>";
                    }                                                                        
 		?></tbody></table>
 		    <div id="division" style="display: none;" title="Add Division">
@@ -89,7 +95,9 @@
                    { 
                    $id = $row['id_jab'];
                    $jab =$row['nama_jab'];
-                   echo "<tr><td>$jab</td><td>Edit | Delete</td></tr>";
+                   echo "<tr><td>$jab</td><td>";
+                   echo "<a title=\"Edit Position $jab\" class=\"edit_pos\" href=\"$site/niriksha/edit_pos/$id\">Edit</a> |";
+                   echo "<a title=\"Delete Position $jab\" class=\"delete_pos\" href=\"$site/niriksha/delete_pos/$id\">Delete</a> </td></tr>";
                    }                                                                        
 		?></table>
 		    <div id="position" style="display: none;" title="Add Potision">
