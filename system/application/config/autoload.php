@@ -51,7 +51,7 @@ $autoload['libraries'] = array('session','database');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url','file');
+$autoload['helper'] = array('url','file','form');
 
 
 /*
@@ -108,7 +108,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('system_user');
+$autoload['model'] = array('system_user','camera');
 
 
 

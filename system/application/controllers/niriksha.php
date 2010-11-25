@@ -29,7 +29,7 @@ class Niriksha extends Controller {
 		$this->system_user->check_session('video');
 		$this->load->view('header');
 		$this->load->view('video');
-		$this->load->view('sidebar');
+		//$this->load->view('sidebar');
 		$this->load->view('footer');
 	}
 	
@@ -55,6 +55,14 @@ class Niriksha extends Controller {
 		$this->load->view('header');
 		$this->load->view('login');
 		$this->load->view('sidebar');
+		$this->load->view('footer');
+	}
+	
+		function registrasi()
+	{
+		$this->load->view('header');
+		$this->load->view('registrasi');
+		
 		$this->load->view('footer');
 	}
 
@@ -125,10 +133,99 @@ class Niriksha extends Controller {
 	echo "</form></p>";
 	}
 	
+	function edit_lok($id){
+	$site = site_url();
+	$this->db->reconnect();
+	$query = $this->db->query("select * from lokasi where id_lok=$id");
+	$row = $query->row_array();
+	$nama_lok = $row['nama_lok'];
+	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/edit_lok/$id\" method=\"POST\" id=\"edit_lok\">";
+	echo "<input type=\"text\" name=\"new_lok\" value=\"$nama_lok\"";
+	echo "</form></p>";
+	}
+	
+	function delete_lok($id){
+	$site = site_url();
+	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/dellok/$id\" method=\"POST\" id=\"dellok\">";
+	echo "Are You sure to delete this Location ? <br/><br/>";
+	echo "</form></p>";
+	}
+	
+	function delete_cam($id){
+	$site = site_url();
+	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/delcam/$id\" method=\"POST\" id=\"delcam\">";
+	echo "Are You sure to delete this Camera Configuration ? <br/><br/>";
+	echo "</form></p>";
+	}
+	
+	function start_cam($id){
+	$site = site_url();
+	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/startcam/$id\" method=\"POST\" id=\"startcam\">";
+	echo "Are You sure to start streaming from this camera? <br/><br/>";
+	echo "</form></p>";
+	}
+	
+	function start_rec($id){
+	$site = site_url();
+	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/startrec/$id\" method=\"POST\" id=\"startrec\">";
+	echo "Are You sure to record this camera ? <br/><br/>";
+	echo "</form></p>";
+	}
+	
+	function stop_rec($id){
+	$site = site_url();
+	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/stoprec/$id\" method=\"POST\" id=\"stoprec\">";
+	echo "Are You sure to stop recording this camera  ? <br/><br/>";
+	echo "</form></p>";
+	}
+	
 	 function logout(){
          $this->session->sess_destroy();
          redirect('niriksha');
          }
+         
+     function upload(){
+		 $this->load->view('header');
+		$this->load->view('upload');
+		
+		$this->load->view('footer');
+		 
+		 
+		 }
+         
+     function do_upload()
+	{
+		$title = $this->input->post('title');
+		$desc = $this->input->post('desc');
+		$userfile = $this->input->post('userfile');
+		$privacy = $this->input->post('privacy');
+
+		//redirect('/niriksha/profile/1');
+		
+		$config['upload_path'] = './uploads/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '100';
+		$config['max_width']  = '1024';
+		$config['max_height']  = '768';
+		
+		$this->load->library('upload', $config);
+	
+		if ( ! $this->upload->do_upload())
+		{
+			$error = array('error' => $this->upload->display_errors());
+			
+			$this->load->view('upload', $error);
+		}	
+		else
+		{
+			$data = array('upload_data' => $this->upload->data());
+			
+			$this->db->reconnect();
+			$query = $this->db->query("insert into upload (judul,deskripsi,dir,seting) values('$title','$desc','uploads/$userfile',$privacy)");
+	
+			$this->load->view('upload_success', $data);
+		}
+	}	
 }
 
 

@@ -6,7 +6,7 @@
 		<table cellpadding="4" class="perlu">
 		<tr><th>Username</th><th>Nip</th><th>email</th><th>Name</th><th>Phone</th><th>Division</th><th>Positions</th><th>Action</th></tr>
 		<?php
-                   $list = $this->db->query("select id_user,user,nip,email,phone,name,nama_div,nama_jab from user u,jabatan j,divisi d where u.id_div=d.id_div and j.id_jab=u.id_jab");
+                   $list = $this->db->query("select id_user,user,nip,email,phone,name,nama_div,nama_jab from user u,jabatan j,divisi d where u.user not like 'admin' and u.id_div=d.id_div and j.id_jab=u.id_jab");
                    foreach ($list->result_array() as $row)
                    { 
                    $username = $row['user'];
@@ -112,13 +112,79 @@
 		</p>
 	</div>
 	
-	<h3><a href="#">Section 4</a></h3>
+	<h3><a href="#">Camera Configuration</a></h3>
 	<div>
 		<p>
-		Cras dictum. Pellentesque habitant morbi tristique senectus et netus
-		et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
-		faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
-		mauris vel est.
+		<table cellpadding="4" class="perlu">
+		<tr><th>Camera name</th><th>Camera type</th><th>Location</th><th>IP address</th><th>Port Number</th><th>Share point</th><th>Action</th><th>Record</th></tr>
+		<?php
+                   $this->db->reconnect();
+                   $list = $this->db->query("select * from camconfig c,lokasi l where c.id_lok=l.id_lok");
+                   foreach ($list->result_array() as $row)
+                   { 
+                   $id = $row['c.id_conf'];
+                   $confname = $row['c.nama_conf'];
+                   $camtype = $row['c.cam_type'];
+                   $lok = $row['l.nama_lok'];
+                   $ip = $row['c.ip'];
+                   $port = $row['c.port'];
+                   $sp = $row['c.share_point'];
+                   echo "<tr><td>$confname</td><td>$camtype</td><td>$lok</td><td>$ip</td><td>$port</td><td>$sp</td><td>";  
+                   echo "<a title=\"Start Streaming $confname\" class=\"start_cam\" href=\"$site/niriksha/start_cam/$id\">Start Stream || </a>";
+                   echo "<a title=\"Delete Camera $confname\" class=\"delete_cam\" href=\"$site/niriksha/delete_cam/$id\">Delete</a></td><td>";
+                   echo "<a title=\"Start Recording $confname\" class=\"start_rec\" href=\"$site/niriksha/start_rec/$id\">Start || </a>";
+                   echo "<a title=\"Stop Recording $confname\" class=\"stop_rec\" href=\"$site/niriksha/stop_rec/$id\">Stop</a></td></tr>";                                                                      
+		}?>
+		</table>
+		    <div id="camera" style="display: none;" title="Add Camera">
+                                                    <form action="<?php echo site_url();?>/lib_niriksha/add_camera" method="POST" id="form-cam">
+                                                    <table cellpadding="5">
+						                            <tr><td>Camera Name</td><td>:</td><td><input type="text" name="nama"></td></tr>
+						                            <tr><td>Camera Type</td><td>:</td><td><input type="text" name="type"></td></tr>
+						                            <tr><td>Camera Location</td><td>:</td><td><select name="lokasi"><?php
+						                                           $list = $this->db->query("select * from lokasi");
+                                                                                           foreach ($list->result_array() as $row)
+                                                                                           { 
+                                                                                             $id_lok = $row['id_lok'];
+                                                                                             $lok =$row['nama_lok'];
+                                                                                             echo "<option value=\"$id_lok\">$lok</option>";
+                                                                                           }
+	 					                                        ?></select></td></tr>
+	 					                            <tr><td>Camera IP</td><td>:</td><td><input type="text" name="ip"></td></tr>
+	 					                            <tr><td>Port Number</td><td>:</td><td><input type="text" name="port"></td></tr>
+	 					                            <tr><td>Share Point</td><td>:</td><td><input type="text" name="sp"></td></tr>
+						                            <tr><td></td><td></td><td><input type="submit" id="camadd" value="Add"></td></tr>
+						                            </table>
+						                            </form>
+                                          </div>
+		 <input type="button" id="add_cam" value="Add Camera">
+		</p>
+	</div>
+		<h3><a href="#">Location Editor</a></h3>
+	<div>
+		<p>
+		<table cellpadding="4" class="perlu">
+		<tr><th>Item</th><th>Action</th></tr>
+		<?php
+                   $list = $this->db->query("select * from lokasi");
+                   foreach ($list->result_array() as $row)
+                   { 
+                   $id = $row['id_lok'];
+                   $lok =$row['nama_lok'];
+                   echo "<tr><td>$lok</td><td>";
+                   echo "<a title=\"Edit Position $lok\" class=\"edit_lok\" href=\"$site/niriksha/edit_lok/$id\">Edit</a> |";
+                   echo "<a title=\"Delete Position $lok\" class=\"delete_lok\" href=\"$site/niriksha/delete_lok/$id\">Delete</a> </td></tr>";
+                   }                                                                        
+		?></table>
+		    <div id="location" style="display: none;" title="Add Location">
+                                                    <form action="<?php echo site_url();?>/lib_niriksha/add_location" method="POST" id="form-lok">
+                                                    <table cellpadding="5">
+						                            <tr><td>New Location</td><td>:</td><td><input type="text" name="lokasi"></td></tr>
+						                            <tr><td></td><td></td><td><input type="submit" id="lokadd" value="Add"></td></tr>
+						                            </table>
+						                            </form>
+                                          </div>
+		 <input type="button" id="add_lok" value="Add Location">
 		</p>
 	</div>
 </div>

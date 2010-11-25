@@ -18,7 +18,7 @@
 				<div id="content-profile">
 					<div class="post">
 						<h2 class="title">Welcome Home, <?php echo $name;?></h2>
-						<div class="entry" style="height:<?php if($level == "admin"){ echo 540;} else echo 215; ?>px;">
+						<div class="entry" style="height:<?php if($level == "admin"){ echo 900;} else echo 215; ?>px;">
 						<p>
 						
 						  <table cellpadding="10">

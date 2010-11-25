@@ -13,6 +13,8 @@
 */
 $config['base_url']	= "http://localhost/niriksha";
 
+$config['ip'] = "127.0.0.1";
+$config['video_path'] = "/var/www/video/";
 /*
 |--------------------------------------------------------------------------
 | Index File

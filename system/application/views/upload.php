@@ -1,5 +1,14 @@
-<div id="sidebar">
-  <?php echo form_open_multipart('niriksha/do_upload');?>
+<div id="page">
+		<div id="page-bgtop">
+			<div id="page-bgbtm">
+				<div id="content">
+					<div class="post">
+						<h2 class="title"><a href="#">Upload New Video</a></h2>
+					
+						<div class="entry">  
+						
+<?php echo form_open_multipart('niriksha/do_upload');?>
+
 <table>
 	<tr>
 		<td>tittle</td>
@@ -7,7 +16,7 @@
 	</tr>
 	<tr>
 		<td>description</td>
-		<td>: <input type="textarea" name="desc" /></td>
+		<td>: <input type="textarea" name="desc" rows="10" cols="2"/></td>
 	</tr>
 	<tr>
 		<td>file</td>
@@ -30,3 +39,6 @@
 </form>
 
 </div>
+					</div>
+					<div style="clear: both;">&nbsp;</div>
+				</div>

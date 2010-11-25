@@ -70,9 +70,9 @@ class Lib_niriksha extends Controller {
 	$pw = $row['pw'];
 	
 	 if ($oldpassword == "" || $pass == "" || $password == ""){
-	     $this->system_user->system_error('Please fill out all password form !!');
+	     $this->system_user->system_error('Please fill out all password form!!');
 	   }else if ($encpw != $pw){
-	      $this->system_user->system_error('You not entered valid old password !!');
+	      $this->system_user->system_error('invalid old password!!');
 	   }else if ($password != $pass){
 	      $this->system_user->system_error('Please insert 2 new password identicaly');
 	   }else if ( $encpw == $pw && $password == $pass ){
@@ -129,5 +129,86 @@ class Lib_niriksha extends Controller {
 	 $this->db->query("delete from jabatan where id_jab=$id");	
 	 redirect("/niriksha/profile/");
 	 }
+	 
+	 function add_location(){
+	$lok = $this->input->post('lokasi');
+	$this->db->reconnect();
+	$this->db->query("insert into lokasi(nama_lok) values('$lok')");
+	redirect("niriksha/profile");	 
+		 }
+		 
+	function edit_lok($id){
+	   $lok = $this->input->post('new_lok');
+	   $this->db->reconnect();
+	   $this->db->query("update lokasi set nama_lok='$lok' where id_lok=$id");	
+	   redirect("/niriksha/profile/");
+	}
+	
+	function dellok($id){
+	 $this->db->query("delete from lokasi where id_lok=$id");	
+	 redirect("/niriksha/profile/");
+	 }
+	 
+	 function delcam($id){
+	 $this->db->query("delete from camconfig where id_conf=$id");	
+	 redirect("/niriksha/profile/");
+	 }
+	 
+	  function add_camera(){
+	$lok = $this->input->post('lokasi');
+	$nama = $this->input->post('nama');
+	$type = $this->input->post('type');
+	$ip = $this->input->post('ip');
+	$port = $this->input->post('port');
+	$sp = $this->input->post('sp');
+	$this->db->reconnect();
+	$this->db->query("insert into camconfig(nama_conf,cam_type,id_lok,ip,port,share_point) values('$nama','$type','$lok','$ip','$port','$sp')");
+	
+	redirect("niriksha/profile");	 
+		 }
+		 
+	function startcam($id){
+	 $this->db->reconnect();
+	 $site = site_url();
+	 $query = $this->db->query("select * from camconfig where id_conf = $id");
+	 $row = $query->row_array();
+	 $ip = $row['ip'];
+	 $port = $row['port'];
+	 $sp = $row['share_point'];	
+	 header("location:$site/niriksha/profile");
+	 flush(); @ob_flush();
+	 set_time_limit(0);
+	 ignore_user_abort(0);
+	 shell_exec("cvlc v4l2:///dev/video0 --syslog --sout '#transcode{vcodec=FLV1}:std{access=http,dst=0.0.0.0:$port/$sp.flv}'&");
+	 
+	  
+	 }
+	 
+	 function startrec($id){
+	 $this->db->reconnect();
+     $video_path = $this->config->item('video_path');
+     $server_ip = $this->config->item('ip');	 
+	 $query = $this->db->query("select * from camconfig where id_conf = $id");
+	 $row = $query->row_array();
+	 $ip = $row['ip'];
+	 $port = $row['port'];
+	 $sp = $row['share_point'];	
+     shell_exec("wget -c -P $video_path http://$ip:$port/$sp.flv > /dev/null & ");
+     redirect("/niriksha/profile/");
+	 }
+	 
+	 function stoprec($id){
+	   $this->db->reconnect();
+     $video_path = $this->config->item('video_path');
+     $server_ip = $this->config->item('ip');	 
+	 $query = $this->db->query("select * from camconfig where id_conf = $id");
+	 $row = $query->row_array();
+	 $ip = $row['ip'];
+	 $port = $row['port'];
+	 $sp = $row['share_point'];	
+	 $pid = shell_exec("ps ax | grep -m 1 \"wget -c -P $video_path http://$server_ip:$port/$sp.flv\" | cut -d\" \" -f 1");
+     shell_exec("kill -9 $pid");
+     redirect("/niriksha/profile/");	 
+     }
 	
 }
