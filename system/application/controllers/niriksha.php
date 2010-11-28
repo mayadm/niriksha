@@ -62,7 +62,7 @@ class Niriksha extends Controller {
 	{
 		$this->load->view('header');
 		$this->load->view('registrasi');
-		
+		$this->load->view('sidebar');
 		$this->load->view('footer');
 	}
 
@@ -93,7 +93,7 @@ class Niriksha extends Controller {
 	function delete_user($id){
 	$site = site_url();
 	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/delete_user/$id\" method=\"POST\" id=\"del_user\">";
-	echo "Are You sure to delete this User ? <br/><br/>";
+	echo "Are you sure want to delete this user? <br/><br/>";
 	echo "</form></p>";
 	}
 	
@@ -111,7 +111,7 @@ class Niriksha extends Controller {
 	function delete_div($id){
 	$site = site_url();
 	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/delete_div/$id\" method=\"POST\" id=\"del_div\">";
-	echo "Are You sure to delete this Division ? <br/><br/>";
+	echo "Are you sure want to delete this division? <br/><br/>";
 	echo "</form></p>";
 	}
 	
@@ -129,7 +129,7 @@ class Niriksha extends Controller {
 	function delete_pos($id){
 	$site = site_url();
 	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/delete_pos/$id\" method=\"POST\" id=\"del_pos\">";
-	echo "Are You sure to delete this Division ? <br/><br/>";
+	echo "Are you sure want to delete this position? <br/><br/>";;
 	echo "</form></p>";
 	}
 	
@@ -147,35 +147,35 @@ class Niriksha extends Controller {
 	function delete_lok($id){
 	$site = site_url();
 	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/dellok/$id\" method=\"POST\" id=\"dellok\">";
-	echo "Are You sure to delete this Location ? <br/><br/>";
+	echo "Are you sure want to delete this location? <br/><br/>";
 	echo "</form></p>";
 	}
 	
 	function delete_cam($id){
 	$site = site_url();
 	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/delcam/$id\" method=\"POST\" id=\"delcam\">";
-	echo "Are You sure to delete this Camera Configuration ? <br/><br/>";
+	echo "Are you sure want to delete this configuration? <br/><br/>";
 	echo "</form></p>";
 	}
 	
 	function start_cam($id){
 	$site = site_url();
 	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/startcam/$id\" method=\"POST\" id=\"startcam\">";
-	echo "Are You sure to start streaming from this camera? <br/><br/>";
+	echo "Are you sure want to start streaming? <br/><br/>";
 	echo "</form></p>";
 	}
 	
 	function start_rec($id){
 	$site = site_url();
 	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/startrec/$id\" method=\"POST\" id=\"startrec\">";
-	echo "Are You sure to record this camera ? <br/><br/>";
+	echo "Are you sure want to start recording? <br/><br/>";
 	echo "</form></p>";
 	}
 	
 	function stop_rec($id){
 	$site = site_url();
 	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/stoprec/$id\" method=\"POST\" id=\"stoprec\">";
-	echo "Are You sure to stop recording this camera  ? <br/><br/>";
+	echo "Are you sure want to stop recording? <br/><br/>";
 	echo "</form></p>";
 	}
 	

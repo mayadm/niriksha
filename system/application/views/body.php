@@ -7,7 +7,7 @@
 						<div class="entry" style="height:215px;">
 						<br><p>you may watch surveillance live streaming <a href="<?php echo site_url();?>/niriksha/stream">here</a>.</p>
 						<p>or <a href="<?php echo site_url();?>/niriksha/login">login</a> first to share video and create conference.</p>
-						<p>if you dont't have account yet, please <a href="<?php echo site_url();?>/niriksha/stream">sign up</a></p> 
+						<p>if you dont't have account yet, please <a href="<?php echo site_url();?>/niriksha/registrasi">sign up</a></p> 
 							
 						</div>
 					</div>

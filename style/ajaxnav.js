@@ -341,7 +341,7 @@ $(function (){
 		      title: title,
 		      modal: true,
 		      buttons : {
-	"Edit" : function(){
+	"Delete" : function(){
 		    $("#dellok").submit();
 		  },
 	

@@ -69,8 +69,8 @@
                    $id = $row['id_div'];
                    $div =$row['nama_div'];
                    echo "<tr><td>$div</td><td>";
-                   echo "<a title=\"Edit Divison $div\" class=\"edit_div\" href=\"$site/niriksha/edit_div/$id\">Edit</a> |";
-                   echo "<a title=\"Delete user $div\" class=\"delete_div\" href=\"$site/niriksha/delete_div/$id\">Delete</a> </td></tr>";
+                   echo "<a title=\"Edit $div Division\" class=\"edit_div\" href=\"$site/niriksha/edit_div/$id\">Edit</a> |";
+                   echo "<a title=\"Delete $div Division\" class=\"delete_div\" href=\"$site/niriksha/delete_div/$id\">Delete</a> </td></tr>";
                    }                                                                        
 		?></tbody></table>
 		    <div id="division" style="display: none;" title="Add Division">
@@ -172,8 +172,8 @@
                    $id = $row['id_lok'];
                    $lok =$row['nama_lok'];
                    echo "<tr><td>$lok</td><td>";
-                   echo "<a title=\"Edit Position $lok\" class=\"edit_lok\" href=\"$site/niriksha/edit_lok/$id\">Edit</a> |";
-                   echo "<a title=\"Delete Position $lok\" class=\"delete_lok\" href=\"$site/niriksha/delete_lok/$id\">Delete</a> </td></tr>";
+                   echo "<a title=\"Edit Location $lok\" class=\"edit_lok\" href=\"$site/niriksha/edit_lok/$id\">Edit</a> |";
+                   echo "<a title=\"Delete Location $lok\" class=\"delete_lok\" href=\"$site/niriksha/delete_lok/$id\">Delete</a> </td></tr>";
                    }                                                                        
 		?></table>
 		    <div id="location" style="display: none;" title="Add Location">

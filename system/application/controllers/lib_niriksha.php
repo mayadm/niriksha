@@ -16,7 +16,8 @@ class Lib_niriksha extends Controller {
 	function login()
 	{   
 		$before = $_POST['before']; 
-		$user = $_POST['user'];
+		$username = $_POST['user'];
+		$user = strtolower($username);
 		$password = $_POST['password'];
                 $url = site_url();
                 $login_url = "$url/niriksha/login";
@@ -33,6 +34,7 @@ class Lib_niriksha extends Controller {
 	
 	function add_user(){
 	$username = $this->input->post('username');
+	$user = strtolower($username);
 	$password = $this->input->post('password');
 	$name = $this->input->post('name');
 	$email = $this->input->post('email');
@@ -42,7 +44,7 @@ class Lib_niriksha extends Controller {
 	$nip = $this->input->post('nip');
 	$this->db->reconnect();
 	$encpass = sha1($password);
-        $query = $this->db->query("insert into user (user,nip,id_div,id_jab,email,pw,level,name,phone) values('$username','$nip','$divisi','$jabatan','$email','$encpass','NULL','$name','$phone')");
+        $query = $this->db->query("insert into user (user,nip,id_div,id_jab,email,pw,level,name,phone) values('$user','$nip','$divisi','$jabatan','$email','$encpass','NULL','$name','$phone')");
 	redirect('/niriksha/profile/1');
 	}
 	
@@ -54,8 +56,13 @@ class Lib_niriksha extends Controller {
 	$jabatan = $this->input->post('jabatan');
 	$divisi = $this->input->post('divisi');
 	$nip = $this->input->post('nip');
-	$this->db->reconnect();
-	$query = $this->db->query("update user set user='$username',name='$name',email='$email',phone='$phone',id_div='$divisi',id_jab='$jabatan',nip='$nip' where id_user=$id");
+	$this->db->reconnect(); 
+	if ($id != 1){
+		$query = "update user set user='$username',name='$name',email='$email',phone='$phone',id_div='$divisi',id_jab='$jabatan',nip='$nip' where id_user=$id";
+	}else if ($id == 1){
+		$query = "update user set user='$username',name='$name',email='$email',phone='$phone',id_div='$divisi',nip='$nip' where id_user=$id";
+	}
+	$this->db->query($query);
 	redirect("/niriksha/profile/$id");
 	}
 	
