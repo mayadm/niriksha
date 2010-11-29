@@ -187,6 +187,13 @@ class Niriksha extends Controller {
      function upload_success(){
 	  
 		 }
+		 
+		 function tampil_video()
+	{
+		$this->load->view('header');
+		$this->load->view('tampil_video');
+		$this->load->view('footer');
+	}
          
     
 }

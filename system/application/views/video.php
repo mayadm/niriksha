@@ -37,12 +37,31 @@
 </table>
 
 </form>
-<table>
+<table><tr>
 <?php
-//$this->db->reconnect();
-//$this->db->query('select * ');
+$kolom = 5;
+$i = 0;
+$site = $this->config->item('upload_url');
+$web = site_url();
+$this->db->reconnect();
+$query = $this->db->query("select * from upload u, user s where u.id_user = s.id_user and u.seting like '0'");
+foreach($query->result_array() as $row){
+	$id = $row['u.id_upload'];
+	$title = $row['u.judul'];
+	$deskripsi = $row['u.deskripsi'];
+	$dir = $row['u.dir'];
+	$uploader = $row['s.name'];
+	if($i >= $kolom){
+		 echo "</tr><tr>";
+		 $i = 0;
+		}
+	 $i++;
+	 echo "<td align=\"center\"><br>	      
+	       <a href=\"$web/niriksha/tampil_video/$id\"><img src=\"$site/snapshot/$dir.jpg\" width=\"150px\" title=\"$deskripsi\"></a>$title
+	      <br><br></td>";
+}
 ?>
-</table>
+</tr></table> 
 						</div>
 					</div>
 					<div style="clear: both;">&nbsp;</div>

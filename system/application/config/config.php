@@ -16,6 +16,7 @@ $config['base_url']	= "http://localhost/niriksha";
 $config['ip'] = "127.0.0.1";
 $config['video_path'] = "/var/www/video/"; 
 $config['upload_dir'] = "/var/www/uploads/";
+$config['upload_url'] = "http://localhost/uploads";
 
 /*
 |--------------------------------------------------------------------------

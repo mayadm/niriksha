@@ -3,7 +3,7 @@
 			<div id="page-bgbtm">
 				<div id="content">
 					<div class="post">
-						<h2 class="title"><a href="#">Welcome to Regeneracy  </a></h2>
+						<h2 class="title"><a href="#">conference wew  </a></h2>
 						<p class="meta"><span class="date">May 10, 2010</span><span class="posted">Posted by <a href="#">Someone</a></span></p>
 						<div style="clear: both;">&nbsp;</div>
 						<div class="entry">
@@ -12,23 +12,7 @@
 							<p class="links"><a href="#">Read More</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" title="b0x w">Comments</a></p>
 						</div>
 					</div>
-					<div class="post">
-						<h2 class="title"><a href="#">Lorem ipsum sed aliquam</a></h2>
-						<p class="meta"><span class="date">May 10, 2010</span><span class="posted">Posted by <a href="#">Someone</a></span></p>
-						<div style="clear: both;">&nbsp;</div>
-						<div class="entry">
-							<p>Sed lacus. Donec lectus. Nullam pretium nibh ut turpis. Nam bibendum. In nulla tortor, elementum vel, tempor at, varius non, purus. Mauris vitae nisl nec metus placerat consectetuer. Donec ipsum. Proin imperdiet est. Phasellus <a href="#">dapibus semper urna</a>. Pellentesque ornare, orci in consectetuer hendrerit, urna elit eleifend nunc, ut consectetuer nisl felis ac diam. Etiam non felis. Donec ut ante. In id eros. Suspendisse lacus turpis, cursus egestas at sem.  Mauris quam enim, molestie in, rhoncus ut, lobortis a, est.</p>
-							<p class="links"><a href="#">Read More</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Comments</a></p>
-						</div>
-					</div>
-					<div class="post">
-						<h2 class="title"><a href="#">Consecteteur hendrerit </a></h2>
-						<p class="meta"><span class="date">May 10, 2010</span><span class="posted">Posted by <a href="#">Someone</a></span></p>
-						<div style="clear: both;">&nbsp;</div>
-						<div class="entry">
-							<p>Sed lacus. Donec lectus. Nullam pretium nibh ut turpis. Nam bibendum. In nulla tortor, elementum vel, tempor at, varius non, purus. Mauris vitae nisl nec metus placerat consectetuer. Donec ipsum. Proin imperdiet est. Phasellus <a href="#">dapibus semper urna</a>. Pellentesque ornare, orci in consectetuer hendrerit, urna elit eleifend nunc, ut consectetuer nisl felis ac diam. Etiam non felis. Donec ut ante. In id eros. Suspendisse lacus turpis, cursus egestas at sem.  Mauris quam enim, molestie in, rhoncus ut, lobortis a, est.</p>
-							<p class="links"><a href="#">Read More</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Comments</a></p>
-						</div>
-					</div>
+					
+					
 					<div style="clear: both;">&nbsp;</div>
 				</div>
