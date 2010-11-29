@@ -3,7 +3,7 @@
 			<div id="page-bgbtm">
 				<div id="content">
 					<div class="post">
-						<h2 class="title"><a href="#">uploaded video</a></h2>
+						
 						<?php 
 						$id = $this->uri->segment(3);
 						$web = $this->config->item('upload_url');
@@ -12,11 +12,35 @@
 						$row = $query->row_array();
 						$title = $row['u.judul'];
 						$dir = $row['u.dir'];
+						$desc = $row['u.deskripsi'];
+						$user = $row['s.name'];
+						echo "<h2 class=\"title\">$title</h2><br><br>";
 						echo "<a href=\"$web/$dir.flv\" style=\"display:block;width:520px;height:330px\" class=\"player\"></a>\n";
+						echo "<br><h3><strong>Description:</strong><br>$desc</h3><br>\n";
+						echo "<br><h3><strong>Uploaded By:</strong> $user</h3><br>\n";
 						?>
 						<script type="text/javascript">flowplayer("a.player", "<?php echo base_url();?>/style/player/player.swf");</script>
+						
+						<?php 
+						//$this->load->library('pagination');
+
+						//$config['base_url'] = 'http://localhost/niriksha/index.php/niriksha/tampil_video/';
+						//$config['total_rows'] = '200';
+						//$config['per_page'] = '10';
+
+						//$this->pagination->initialize($config);
+
+						//echo $this->pagination->create_links();
+						
+						
+						?>
+						
 						</div>
+						
+						
 					</div>
+					
+					
 					
 					
 					<div style="clear: both;">&nbsp;</div>
