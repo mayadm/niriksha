@@ -217,5 +217,33 @@ class Lib_niriksha extends Controller {
      shell_exec("kill -9 $pid");
      redirect("/niriksha/profile/");	 
      }
+     
+     function upload_video(){
+	 $id = $this->input->post('id_user'); 
+	 $title = $this->input->post('title');
+	 $desc = $this->input->post('desc');
+	 $seting = $this->input->post('seting');
+	 $upload_dir = $this->config->item('upload_dir');
+	 
+	 $config['upload_path'] = $upload_dir;
+	 $config['allowed_types'] = 'flv';
+	 $config['max_size']	= '0';
+		
+		$this->load->library('upload', $config);
+		$this->upload->do_upload();
+		$data = $this->upload->data();
+		$raw_name = $data['raw_name'];
+		$file_name = sha1($raw_name);
+        $error = $this->upload->display_errors();
+        if ($error != '' ){
+		$this->system_user->system_error($error);
+		}else if ($error == '' ){
+		 shell_exec("mv \"$upload_dir/$raw_name.flv\" \"$upload_dir/$file_name.flv\"");
+		 shell_exec("ffmpeg -i $upload_dir/$file_name.flv -s cif -r 1 -ss 00:00:20 -t 1 -f image2 $upload_dir/snapshot/$file_name.jpg");
+		 $this->db->reconnect();
+		 $this->db->query("insert into upload(judul,deskripsi,dir,seting,id_user) values('$title','$desc','$file_name','$seting','$id')");
+		 redirect('niriksha/video');
+		}
+     }
 	
 }

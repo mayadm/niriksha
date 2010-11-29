@@ -184,48 +184,11 @@ class Niriksha extends Controller {
          redirect('niriksha');
          }
          
-     function upload(){
-		 $this->load->view('header');
-		$this->load->view('upload');
-		
-		$this->load->view('footer');
-		 
-		 
+     function upload_success(){
+	  
 		 }
          
-     function do_upload()
-	{
-		$title = $this->input->post('title');
-		$desc = $this->input->post('desc');
-		$userfile = $this->input->post('userfile');
-		$privacy = $this->input->post('privacy');
-
-		//redirect('/niriksha/profile/1');
-		
-		$config['upload_path'] = './uploads/';
-		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '100';
-		$config['max_width']  = '1024';
-		$config['max_height']  = '768';
-		
-		$this->load->library('upload', $config);
-	
-		if ( ! $this->upload->do_upload())
-		{
-			$error = array('error' => $this->upload->display_errors());
-			
-			$this->load->view('upload', $error);
-		}	
-		else
-		{
-			$data = array('upload_data' => $this->upload->data());
-			
-			$this->db->reconnect();
-			$query = $this->db->query("insert into upload (judul,deskripsi,dir,seting) values('$title','$desc','uploads/$userfile',$privacy)");
-	
-			$this->load->view('upload_success', $data);
-		}
-	}	
+    
 }
 
 
