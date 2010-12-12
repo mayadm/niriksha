@@ -37,32 +37,75 @@
 </table>
 
 </form>
+<?php
+$this->db->reconnect();
+$query=$this->db->query("select count(id_upload) as total from upload where seting <> 1");
+$row = $query->row_array();
+$raw = $row['total'];
+$page = $raw/10;
+?>
+<script type="text/javascript">
+		$(function() {
+           $("#demo4").paginate({
+				count 		: <?php echo round($page)+1;?>,
+				start 		: 1,
+				display     : 2,
+				border					: false,
+				text_color  			: '#79B5E3',
+				background_color    	: 'none',	
+				text_hover_color  		: '#2573AF',
+				background_hover_color	: 'none', 
+				images					: false,
+				mouse					: 'press',
+				onChange     			: function(page){
+											$('._current','#paginationdemo').removeClass('_current').hide();
+											$('#p'+page).addClass('_current').show();
+										  }
+
+			});
+         });
+</script>
+<div id="paginationdemo" class="demo">
+<div id="p1" class="pagedemo _current" style="">
 <table><tr>
 <?php
 $kolom = 5;
+$video = 10;
 $i = 0;
+$j = 1;
+$k = 1;
+$user_id=$this->session->userdata('id');
 $site = $this->config->item('upload_url');
 $web = site_url();
 $this->db->reconnect();
-$query = $this->db->query("select * from upload u, user s where u.id_user = s.id_user and u.seting like '0'");
+$query = $this->db->query("select distinct u.id_upload,u.judul,u.deskripsi,u.dir from upload u, user s where u.id_user = s.id_user and u.seting=0 or u.id_user in (select id_user from user where id_div in (select id_div from user where id_user=$user_id))");
 foreach($query->result_array() as $row){
 	$id = $row['u.id_upload'];
 	$title = $row['u.judul'];
 	$deskripsi = $row['u.deskripsi'];
 	$dir = $row['u.dir'];
-	$uploader = $row['s.name'];
 	if($i >= $kolom){
-		 echo "</tr><tr>";
+		 echo "</tr><tr>\n";
 		 $i = 0;
+		 if ($j >= 2){
+			 echo "</table></div><div id=\"p$k\" class=\"pagedemo _current\" style=\"display:none;\">";
+			 echo "<table>";
+			 $j = 0;
+			 }
+	     $k++;
+		 $j++;
 		}
 	 $i++;
 	 echo "<td align=\"center\"><br>	      
-	       <a href=\"$web/niriksha/tampil_video/$id\"><img src=\"$site/snapshot/$dir.jpg\" width=\"150px\" title=\"$deskripsi\"></a>$title
+	       <a href=\"$web/niriksha/tampil_video/$id\"><img src=\"$site/snapshot/$dir.jpg\" width=\"150px\" ></a>$title
 	      <br><br></td>";
-}
+     } 
+echo "</tr></table>"; 
 ?>
-</tr></table> 
-						</div>
+</div>
+</div>
+</div><div id="demo4"></div>
 					</div>
+                
 					<div style="clear: both;">&nbsp;</div>
 				</div>

@@ -14,8 +14,10 @@ class Camera extends Model {
 		$confname = $row['c.nama_conf'];
         $camtype = $row['c.cam_type'];
         $lok = $row['l.nama_lok'];
+        $id = $row['c.id_conf'];
         $ip = $row['c.ip'];
         $port = $row['c.port'];
+        $flv_port=$port+$id;
         $sp = $row['c.share_point'];
         echo "<div class=\"post\">\n";
         echo "<h2 class=\"title\">\n";
@@ -24,7 +26,7 @@ class Camera extends Model {
 		echo "<div class=\"entry\"><p>\n";
 		echo "<table style=\"font-size:15px;\"><tr><td>location</td><td>:</td><td>$lok</td></tr><br>\n";
 		echo "<tr><td>source</td><td>:</td><td>$camtype</td></table><br><br><p align=\"center\">\n";
-		echo "<a href=\"http://$ipserver:$port/$sp.flv\" style=\"display:block;width:520px;height:330px\" class=\"player\"></a>\n";
+		echo "<a href=\"http://$ipserver:$flv_port/$sp.flv\" style=\"display:block;width:520px;height:330px\" class=\"player\"></a>\n";
 		echo "</p></div>";
 	}
     }

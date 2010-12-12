@@ -181,12 +181,13 @@ class Lib_niriksha extends Controller {
 	 $row = $query->row_array();
 	 $ip = $row['ip'];
 	 $port = $row['port'];
+         $flv_port = $port+$id;
 	 $sp = $row['share_point'];	
 	 header("location:$site/niriksha/profile");
 	 flush(); @ob_flush();
 	 set_time_limit(0);
 	 ignore_user_abort(0);
-	 shell_exec("cvlc v4l2:///dev/video0 --syslog --sout '#transcode{vcodec=FLV1}:std{access=http,dst=0.0.0.0:$port/$sp.flv}'&");
+	 shell_exec("cvlc http://$ip:$port/$sp.asf --syslog --sout '#transcode{vcodec=FLV1}:std{access=http,dst=0.0.0.0:$flv_port/$sp.flv}'&");
 	 
 	  
 	 }
@@ -245,5 +246,14 @@ class Lib_niriksha extends Controller {
 		 redirect('niriksha/video');
 		}
      }
+     
+     function edit_video($id){
+		 $title = $this->input->post('title');
+		 $desc = $this->input->post('desc');
+		 $perm = $this->input->post('perm');
+		 $this->db->reconnect();
+		 $this->db->query("update upload set judul='$title',deskripsi='$desc',seting=$perm where id_upload=$id");
+		 redirect("niriksha/tampil_video/$id");
+		 }
 	
 }

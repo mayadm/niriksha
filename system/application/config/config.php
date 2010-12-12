@@ -11,12 +11,12 @@
 |	http://example.com/
 |
 */
-$config['base_url']	= "http://localhost/niriksha";
+$config['base_url']	= "http://10.14.18.50/niriksha";
 
-$config['ip'] = "127.0.0.1";
+$config['ip'] = "10.14.18.50";
 $config['video_path'] = "/var/www/video/"; 
 $config['upload_dir'] = "/var/www/uploads/";
-$config['upload_url'] = "http://localhost/uploads";
+$config['upload_url'] = "http://10.14.18.50/uploads";
 
 /*
 |--------------------------------------------------------------------------
