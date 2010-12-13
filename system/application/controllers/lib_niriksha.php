@@ -156,6 +156,17 @@ class Lib_niriksha extends Controller {
 	 redirect("/niriksha/profile/");
 	 }
 	 
+	 function delvideo($id){
+	 $upload_dir=$this->config->item('upload_dir'); 
+	 $query = $this->db->query("select dir from upload where id_upload=$id");
+	 $row = $query->row_array();
+	 $dir = $row['dir'];
+	 shell_exec("rm $upload_dir/$dir.flv");	
+	 shell_exec("rm $upload_dir/snapshot/$dir.jpg");
+	 $this->db->query("delete from upload where id_upload=$id");
+	 redirect("/niriksha/video/");
+	 }
+	 
 	 function delcam($id){
 	 $this->db->query("delete from camconfig where id_conf=$id");	
 	 redirect("/niriksha/profile/");
@@ -175,21 +186,23 @@ class Lib_niriksha extends Controller {
 		 }
 		 
 	function startcam($id){
+	 $ip_server = $this->config->item('ip');
 	 $this->db->reconnect();
 	 $site = site_url();
 	 $query = $this->db->query("select * from camconfig where id_conf = $id");
 	 $row = $query->row_array();
 	 $ip = $row['ip'];
 	 $port = $row['port'];
-         $flv_port = $port+$id;
+	 if ($port == 80 ){
+		  $nguk = $port+$id;
+		  $flv_port = "80$nguk";
+		  }else $flv_port = $port+$id;
 	 $sp = $row['share_point'];	
 	 header("location:$site/niriksha/profile");
 	 flush(); @ob_flush();
 	 set_time_limit(0);
 	 ignore_user_abort(0);
-	 shell_exec("cvlc http://$ip:$port/$sp.asf --syslog --sout '#transcode{vcodec=FLV1}:std{access=http,dst=0.0.0.0:$flv_port/$sp.flv}'&");
-	 
-	  
+	 shell_exec("cvlc http://$ip:$port/$sp.asf --syslog --sout '#transcode{vcodec=FLV1}:std{access=http,dst=$ip_server:$flv_port/$sp.flv}'&");	  
 	 }
 	 
 	 function startrec($id){

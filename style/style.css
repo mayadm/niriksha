@@ -411,6 +411,10 @@ a:hover {
      background: #7db1f4;
      text-align: center;
 }
+.perlu td{
+   color: #fff;
+   background: #000;
+}
 
 .jPaginate{
     height:34px;

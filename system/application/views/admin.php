@@ -2,10 +2,42 @@
 <div id="accordion">
         <h3><a href="#">User Editor</a></h3>
 	<div>
+	    <?php 
+	    $batas = 6;
+	    $this->db->reconnect();
+	    $query = $this->db->query("select * from user where id_user not like '1' ");
+	    $row = $query->num_rows();
+	    $page = $row/$batas;
+	    ?>
+	    <script type="text/javascript">
+		$(function() {
+           $("#user_pagin").paginate({
+				count 		: <?php echo ceil($page);?>,
+				start 		: 1,
+				display     : 50,
+				border					: false,
+				text_color  			: '#79B5E3',
+				background_color    	: 'none',	
+				text_hover_color  		: '#2573AF',
+				background_hover_color	: 'none', 
+				images					: false,
+				mouse					: 'press',
+				onChange     			: function(page){
+											$('._current','#paginationdemo').removeClass('_current').hide();
+											$('#p'+page).addClass('_current').show();
+										  }
+
+			});
+         });
+         </script>
 		<p>
-		<table cellpadding="4" class="perlu">
+		<div id="paginationdemo" class="demo">
+        <div id="p1" class="pagedemo _current" style="">
+        <table cellpadding="4" class="perlu">
 		<tr><th>Username</th><th>Nip</th><th>email</th><th>Name</th><th>Phone</th><th>Division</th><th>Positions</th><th>Action</th></tr>
 		<?php
+		           $k=1;
+		           $m=2;
                    $list = $this->db->query("select id_user,user,nip,email,phone,name,nama_div,nama_jab from user u,jabatan j,divisi d where u.user not like 'admin' and u.id_div=d.id_div and j.id_jab=u.id_jab");
                    foreach ($list->result_array() as $row)
                    { 
@@ -18,16 +50,29 @@
                    $div = $row['nama_div'];
                    $jabatan = $row['nama_jab'];
                    $site = site_url();
-                   echo "<tr><td>$username</td><td>$nip</td><td>$email</td><td>$name</td><td>$phone</td><td>$div</td><td>$jabatan</td><td>";
+                   echo "<tr><td>$username</td><td>$nip</td><td>$email</td><td>$name</td><td>$phone</td><td>$div</td><td>$jabatan</td><td> \n";
                    echo "<a title=\"Edit user $username\" class=\"edit_user\" href=\"$site/niriksha/edit_user/$id\">Edit</a> |";
-                   echo "<a title=\"Delete user $username\" class=\"delete_user\" href=\"$site/niriksha/delete_user/$id\">Delete</a> </td></tr>";
+                   echo "<a title=\"Delete user $username\" class=\"delete_user\" href=\"$site/niriksha/delete_user/$id\">Delete</a> </td></tr> \n";
+                   if ($k == $batas){
+					   echo "</table></div>\n";
+					   echo "<div id=\"p$m\" class=\"pagedemo _current\" style=\"display:none;\"> \n";
+					   echo "<table cellpadding=\"4\" class=\"perlu\">";
+		               echo "<tr><th>Username</th><th>Nip</th><th>email</th><th>Name</th><th>Phone</th><th>Division</th><th>Positions</th><th>Action</th></tr>";
+					   $m++;
+					   $k=0;
+					   }
+                   $k++;
                    }                                                                        
-		?></tbody></table>
+		?></table>
+		</div>
+		</div>
+		
+		   <div id="user_pagin"></div>
 		    <div id="user" style="display: none;" title="Add New User">
                                                     <form action="<?php echo site_url();?>/lib_niriksha/add_user" method="POST" id="form-user">
                                                     <table cellpadding="5">
 						    <tr><td>Username</td><td>:</td><td><input type="text" name="username"></td></tr>
-						    <tr><td>Password</td><td>:</td><td><input type="text" name="password"></td></tr>
+						    <tr><td>Password</td><td>:</td><td><input type="password" name="password"></td></tr>
 						    <tr><td>NIP</td><td>:</td><td><input type="text" name="nip"></td></tr>
 						    <tr><td>Surename</td><td>:</td><td><input type="text" name="name"></td></tr>
 						    <tr><td>Email</td><td>:</td><td><input type="text" name="email"></td></tr>

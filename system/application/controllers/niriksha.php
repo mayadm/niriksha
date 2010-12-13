@@ -158,6 +158,13 @@ class Niriksha extends Controller {
 	echo "</form></p>";
 	}
 	
+	function delete_video($id){
+	$site = site_url();
+	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/delvideo/$id\" method=\"POST\" id=\"del_video\">";
+	echo "Are you sure want to delete this Video ? <br/><br/>";
+	echo "</form></p>";
+	}
+	
 	function start_cam($id){
 	$site = site_url();
 	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/startcam/$id\" method=\"POST\" id=\"startcam\">";

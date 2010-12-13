@@ -38,18 +38,20 @@
 
 </form>
 <?php
-$this->db->reconnect();
-$query=$this->db->query("select count(id_upload) as total from upload where seting <> 1");
-$row = $query->row_array();
-$raw = $row['total'];
-$page = $raw/10;
+$user_id=$this->session->userdata('id');
+if ($user_id == 1 ){
+	$hah = "select count(id_upload) as total from upload u,user s where u.id_user = s.id_user";
+	}else $hah = "select distinct u.id_upload as total from upload u, user s where u.id_user = s.id_user and u.seting=0 or u.id_user in (select id_user from user where id_div in (select id_div from user where id_user=$user_id))";
+$query=$this->db->query($hah);
+$row = $query->num_rows();
+$page = $row/10;
 ?>
 <script type="text/javascript">
 		$(function() {
            $("#demo4").paginate({
-				count 		: <?php echo round($page)+1;?>,
+				count 		: <?php echo ceil($page);?>,
 				start 		: 1,
-				display     : 2,
+				display     : 10,
 				border					: false,
 				text_color  			: '#79B5E3',
 				background_color    	: 'none',	
@@ -73,12 +75,15 @@ $kolom = 5;
 $video = 10;
 $i = 0;
 $j = 1;
-$k = 1;
-$user_id=$this->session->userdata('id');
+$k = 2;
+
+if ($user_id == 1){
+	$select = "select * from upload u,user s where u.id_user = s.id_user";
+	}else $select = "select distinct u.id_upload,u.judul,u.deskripsi,u.dir from upload u, user s where u.id_user = s.id_user and u.seting=0 or u.id_user in (select id_user from user where id_div in (select id_div from user where id_user=$user_id))";
 $site = $this->config->item('upload_url');
 $web = site_url();
 $this->db->reconnect();
-$query = $this->db->query("select distinct u.id_upload,u.judul,u.deskripsi,u.dir from upload u, user s where u.id_user = s.id_user and u.seting=0 or u.id_user in (select id_user from user where id_div in (select id_div from user where id_user=$user_id))");
+$query = $this->db->query($select);
 foreach($query->result_array() as $row){
 	$id = $row['u.id_upload'];
 	$title = $row['u.judul'];
@@ -88,20 +93,23 @@ foreach($query->result_array() as $row){
 		 echo "</tr><tr>\n";
 		 $i = 0;
 		 if ($j >= 2){
-			 echo "</table></div><div id=\"p$k\" class=\"pagedemo _current\" style=\"display:none;\">";
-			 echo "<table>";
+			 echo "</table></div><div id=\"p$k\" class=\"pagedemo _current\" style=\"display:none;\">\n";
+			 echo "<table><tr>\n";
 			 $j = 0;
+			 $k++;
 			 }
-	     $k++;
 		 $j++;
 		}
+	 
 	 $i++;
 	 echo "<td align=\"center\"><br>	      
-	       <a href=\"$web/niriksha/tampil_video/$id\"><img src=\"$site/snapshot/$dir.jpg\" width=\"150px\" ></a>$title
-	      <br><br></td>";
+	       <a href=\"$web/niriksha/tampil_video/$id\"><img src=\"$site/snapshot/$dir.jpg\" width=\"150px\" ></a><br>
+	       $title
+	      <br><br></td>\n";
      } 
-echo "</tr></table>"; 
+
 ?>
+</table></tr></table>
 </div>
 </div>
 </div><div id="demo4"></div>

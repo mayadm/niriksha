@@ -609,5 +609,42 @@ $(function (){
             return false;
         });
     });
+    
+    $(function (){
+        $('a.delete_video').click(function() {
+            var url = this.href;
+	    var title = this.title;
+            var dialog = $('<div class="delete" style="display:hidden"></div>').appendTo('body');
+            // load remote content
+            dialog.load(
+                url, 
+                {},
+                function (responseText, textStatus, XMLHttpRequest) {
+                    dialog.dialog({
+		      height: 150,
+		      width: 350,
+		      show: 'puff',
+		      hide: 'explode',
+		      draggable: false,
+		      resizable: false,
+		      title: title,		  
+		      modal: true,
+		      buttons : {
+	"Delete" : function(){
+		    $("#del_video").submit();
+		  },
+	
+         "Cencel" : function(){
+		     dialog.dialog('destroy');
+		  }
+      }
+
+		    });
+                }
+            );
+            //prevent the browser to follow the link
+            return false;
+        });
+    });
        
  
