@@ -24,6 +24,18 @@
 						
 						  });
 						  
+						  $("#category").dialog({
+			                          autoOpen: false,
+						  height: 150,
+						  width: 300,
+						  show: 'puff',
+						  hide: 'explode',
+						  draggable: false,
+						  resizable: false,
+						  modal: true
+						
+						  });
+						  
 						  $("#camera").dialog({
 			                          autoOpen: false,
 						  height: 300,
@@ -40,6 +52,11 @@
 			                          .button()
 			                          .click(function() {
 				                  $('#division').dialog('open');
+		                                 });
+						   $('#add_cat')
+			                          .button()
+			                          .click(function() {
+				                  $('#category').dialog('open');
 		                                 });
 						  
 						   $("#position").dialog({
@@ -198,7 +215,7 @@ $(function (){
 		    $("#edit_user").submit();
 		  },
 	
-         "Cencel" : function(){
+         "Cancel" : function(){
 		     dialog.dialog('destroy');
 		  }
       }
@@ -235,7 +252,7 @@ $(function (){
 		    $("#del_user").submit();
 		  },
 	
-         "Cencel" : function(){
+         "Cancel" : function(){
 		     dialog.dialog('destroy');
 		  }
       }
@@ -273,7 +290,7 @@ $(function (){
 		    $("#editdiv").submit();
 		  },
 	
-         "Cencel" : function(){
+         "Cancel" : function(){
 		     dialog.dialog('destroy');
 		  }
       }
@@ -309,7 +326,7 @@ $(function (){
 		    $("#edit_lok").submit();
 		  },
 	
-         "Cencel" : function(){
+         "Cancel" : function(){
 		     dialog.dialog('destroy');
 		  }
       }
@@ -345,7 +362,7 @@ $(function (){
 		    $("#dellok").submit();
 		  },
 	
-         "Cencel" : function(){
+         "Cancel" : function(){
 		     dialog.dialog('destroy');
 		  }
       }
@@ -381,7 +398,7 @@ $(function (){
 		    $("#delcam").submit();
 		  },
 	
-         "Cencel" : function(){
+         "Cancel" : function(){
 		     dialog.dialog('destroy');
 		  }
       }
@@ -417,7 +434,7 @@ $(function (){
 		    $("#startcam").submit();
 		  },
 	
-         "Cencel" : function(){
+         "Cancel" : function(){
 		     dialog.dialog('destroy');
 		  }
       }
@@ -453,7 +470,7 @@ $(function (){
 		    $("#startrec").submit();
 		  },
 	
-         "Cencel" : function(){
+         "Cancel" : function(){
 		     dialog.dialog('destroy');
 		  }
       }
@@ -489,7 +506,7 @@ $(function (){
 		    $("#stoprec").submit();
 		  },
 	
-         "Cencel" : function(){
+         "Cancel" : function(){
 		     dialog.dialog('destroy');
 		  }
       }
@@ -526,7 +543,7 @@ $(function (){
 		    $("#del_div").submit();
 		  },
 	
-         "Cencel" : function(){
+         "Cancel" : function(){
 		     dialog.dialog('destroy');
 		  }
       }
@@ -562,7 +579,7 @@ $(function (){
 		    $("#editpos").submit();
 		  },
 	
-         "Cencel" : function(){
+         "Cancel" : function(){
 		     dialog.dialog('destroy');
 		  }
       }});
@@ -598,7 +615,7 @@ $(function (){
 		    $("#del_pos").submit();
 		  },
 	
-         "Cencel" : function(){
+         "Cancel" : function(){
 		     dialog.dialog('destroy');
 		  }
       }
@@ -634,7 +651,7 @@ $(function (){
 		    $("#del_video").submit();
 		  },
 	
-         "Cencel" : function(){
+         "Cancel" : function(){
 		     dialog.dialog('destroy');
 		  }
       }
@@ -646,5 +663,76 @@ $(function (){
             return false;
         });
     });
-       
+      
+    $(function (){
+        $('a.edit_cat').click(function() {
+            var url = this.href;
+	    var title = this.title;
+            var dialog = $('<div style="display:hidden"></div>').appendTo('body');
+            // load remote content
+            dialog.load(
+                url, 
+                {},
+                function (responseText, textStatus, XMLHttpRequest) {
+                    dialog.dialog({
+		      height: 150,
+		      width: 200,
+		      show: 'puff',
+		      hide: 'explode',
+		      draggable: false,
+		      resizable: false,
+		      title: title,
+		      modal: true,
+		      buttons : {
+	"Edit" : function(){
+		    $("#editcat").submit();
+		  },
+	
+         "Cancel" : function(){
+		     dialog.dialog('destroy');
+		  }
+      }
+		    });
+                }
+            );
+            //prevent the browser to follow the link
+            return false;
+        });
+    }); 
  
+  $(function (){
+        $('a.delete_cat').click(function() {
+            var url = this.href;
+	    var title = this.title;
+            var dialog = $('<div class="delete" style="display:hidden"></div>').appendTo('body');
+            // load remote content
+            dialog.load(
+                url, 
+                {},
+                function (responseText, textStatus, XMLHttpRequest) {
+                    dialog.dialog({
+		      height: 150,
+		      width: 350,
+		      show: 'puff',
+		      hide: 'explode',
+		      draggable: false,
+		      resizable: false,
+		      title: title,		  
+		      modal: true,
+		      buttons : {
+	"Delete" : function(){
+		    $("#del_cat").submit();
+		  },
+	
+         "Cancel" : function(){
+		     dialog.dialog('destroy');
+		  }
+      }
+
+		    });
+                }
+            );
+            //prevent the browser to follow the link
+            return false;
+        });
+    });

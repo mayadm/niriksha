@@ -38,7 +38,7 @@
 		<?php
 		           $k=1;
 		           $m=2;
-                   $list = $this->db->query("select id_user,user,nip,email,phone,name,nama_div,nama_jab from user u,jabatan j,divisi d where u.user not like 'admin' and u.id_div=d.id_div and j.id_jab=u.id_jab");
+                   $list = $this->db->query("select id_user,user,nip,email,phone,name,nama_div,nama_jab from user u,jabatan j,divisi d where u.user not like 'admin' and u.id_div=d.id_div and j.id_jab=u.id_jab order by user");
                    foreach ($list->result_array() as $row)
                    { 
                    $username = $row['user'];
@@ -127,6 +127,33 @@
 						  </form>
                                           </div>
 		 <input type="button" id="add_div" value="Add Division">
+		</p>
+	</div>
+	<h3><a href="#">Video Categories</a></h3>
+	<div>
+		<p>
+		<table cellpadding="4" class="perlu">
+		<tr><th>Item</th><th>Action</th></tr>
+		<?php
+                   $list = $this->db->query("select * from kategori order by nama_kat");
+                   foreach ($list->result_array() as $row)
+                   { 
+                   $id_kat = $row['id_kat'];
+                   $kat = $row['nama_kat'];
+                   echo "<tr><td>$kat</td><td>";
+                   echo "<a title=\"Edit $kat Category\" class=\"edit_cat\" href=\"$site/niriksha/edit_cat/$id_kat\">Edit</a> |";
+                   echo "<a title=\"Delete $kat Category\" class=\"delete_cat\" href=\"$site/niriksha/delete_cat/$id_kat\">Delete</a> </td></tr>";
+                   }                                                                        
+		?></tbody></table>
+		    <div id="category" style="display: none;" title="Add Category">
+                                                    <form action="<?php echo site_url();?>/lib_niriksha/add_category" method="POST" id="form_category">
+                                                    <table cellpadding="5">
+						    <tr><td>Name Of Category</td><td>:</td><td><input type="text" name="category"></td></tr>
+						    <tr><td></td><td></td><td><input type="submit" id="divisi" value="Add Category"></td></tr>
+						  </table>
+						  </form>
+                                          </div>
+		 <input type="button" id="add_cat" value="Add Categories">
 		</p>
 	</div>
 	<h3><a href="#">Positions Editor</a></h3>

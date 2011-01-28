@@ -1,3 +1,3 @@
 <div>
-  <srong>Ini side bar About</strong>
+  <srong></strong>
 </div>

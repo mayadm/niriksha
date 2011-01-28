@@ -1,18 +1,20 @@
+	<?php 
+		$user_id=$this->session->userdata('id');
+	?>
 	<div id="page">
 		<div id="page-bgtop">
 			<div id="page-bgbtm">
 				<div id="content">
 					<div class="post">
 						<h2 class="title"><a href="#">Video Sharing</a></h2>
-					    <?php $id = $this->session->userdata('id');?>
-						<div class="entry">
+						<div  style="<? if ($user_id == '') { echo "display: none;";}?>">
 						<?php echo form_open_multipart('lib_niriksha/upload_video');?>
 
 <table>
 	<tr>
-		<td>tittle</td>
+		<td>title</td>
 		<td>: <input type="text" name="title" size="30"/></td>
-		<input type="hidden" name="id_user" value="<?php echo $id;?>">
+		<input type="hidden" name="id_user" value="<?php echo $user_id;?>">
 	</tr>
 	<tr>
 		<td>description</td>
@@ -21,6 +23,21 @@
 	<tr>
 		<td>file</td>
 		<td>: <input type="file" name="userfile" size="20" /></td>
+	</tr>
+	<tr>
+		<td>category</td>
+		<td>: <select name="category">
+			<?php 
+				$data = $this->db->query("select * from kategori");
+				foreach($data->result_array() as $row){
+					$id = $row['id_kat'];
+					$nama = $row['nama_kat'];
+					echo "<option value=\"$id\">$nama</option>";
+					}
+			?>
+		</select>
+			
+		</td>
 	</tr>
 	<tr>
 		<td>privacy option</td>
@@ -37,11 +54,18 @@
 </table>
 
 </form>
+</div>
+<div class="entry">
 <?php
-$user_id=$this->session->userdata('id');
-if ($user_id == 1 ){
-	$hah = "select count(id_upload) as total from upload u,user s where u.id_user = s.id_user";
-	}else $hah = "select distinct u.id_upload as total from upload u, user s where u.id_user = s.id_user and u.seting=0 or u.id_user in (select id_user from user where id_div in (select id_div from user where id_user=$user_id))";
+
+if ($user_id != ''){
+	 if ( $user_id == 1 ){
+		$hah = "select * from upload u, kategori k where u.id_kat = k.id_kat ";
+	}else if ( $user_id != 1){
+		$hah = "select u.id_upload as total from upload u, user s,kategori k where u.seting = 0 and u.id_kat = k.id_kat and u.id_user = s.id_user or( u.id_kat = k.id_kat and u.id_user = s.id_user and u.id_user in (select id_user from user where id_div = (select id_div from user where id_user=6)))  order by judul";
+	}
+	}else $hah = "select * from upload u,user s,kategori k where u.id_kat = k.id_kat and u.id_user = s.id_user and u.seting = 0 order by judul";
+
 $query=$this->db->query($hah);
 $row = $query->num_rows();
 $page = $row/10;
@@ -69,17 +93,19 @@ $page = $row/10;
 </script>
 <div id="paginationdemo" class="demo">
 <div id="p1" class="pagedemo _current" style="">
-<table><tr>
+<table cellpadding="15"><tr>
 <?php
 $kolom = 5;
 $video = 10;
 $i = 0;
 $j = 1;
 $k = 2;
+$anon = "select * from upload u,user s,kategori k where u.id_kat = k.id_kat and u.id_user = s.id_user and u.seting = 0 order by judul";
 
 if ($user_id == 1){
-	$select = "select * from upload u,user s where u.id_user = s.id_user";
-	}else $select = "select distinct u.id_upload,u.judul,u.deskripsi,u.dir from upload u, user s where u.id_user = s.id_user and u.seting=0 or u.id_user in (select id_user from user where id_div in (select id_div from user where id_user=$user_id))";
+	$select = "select * from upload u,user s, kategori k where k.id_kat = u.id_kat and u.id_user = s.id_user order by judul";
+	}else if ($user_id != 0 ){$select = "select k.nama_kat,u.count,u.id_kat,s.name,u.id_upload,u.judul,u.deskripsi,u.dir  from upload u, user s,kategori k where u.seting = 0 and u.id_kat = k.id_kat and u.id_user = s.id_user or( u.id_kat = k.id_kat and u.id_user = s.id_user and u.id_user in (select id_user from user where id_div = (select id_div from user where id_user=6)))  order by judul";}
+	else $select = $anon;
 $site = $this->config->item('upload_url');
 $web = site_url();
 $this->db->reconnect();
@@ -89,12 +115,17 @@ foreach($query->result_array() as $row){
 	$title = $row['u.judul'];
 	$deskripsi = $row['u.deskripsi'];
 	$dir = $row['u.dir'];
+	$view = $row['u.count'];
+	$user = $row['s.name'];
+	$kategori = $row['k.nama_kat'];
+	$id_kat = $row['u.id_kat'];
 	if($i >= $kolom){
+ 		
 		 echo "</tr><tr>\n";
 		 $i = 0;
 		 if ($j >= 2){
 			 echo "</table></div><div id=\"p$k\" class=\"pagedemo _current\" style=\"display:none;\">\n";
-			 echo "<table><tr>\n";
+			 echo "<table cellpadding=\"15\"><tr>\n";
 			 $j = 0;
 			 $k++;
 			 }
@@ -102,9 +133,13 @@ foreach($query->result_array() as $row){
 		}
 	 
 	 $i++;
-	 echo "<td align=\"center\"><br>	      
+	 echo "<td align=\"center\">
+			<h4>$title</h4> 	      
 	       <a href=\"$web/niriksha/tampil_video/$id\"><img src=\"$site/snapshot/$dir.jpg\" width=\"150px\" ></a><br>
-	       $title
+	       <br>
+	       Viewed $view times<br>
+	       Uploaded By $user <br>
+	       Category <a href=\"$web/niriksha/sort_video/$id_kat\">$kategori</a>
 	      <br><br></td>\n";
      } 
 
@@ -113,7 +148,19 @@ foreach($query->result_array() as $row){
 </div>
 </div>
 </div><div id="demo4"></div>
+
+
 					</div>
-                
+<?php 
+$data = $this->db->query("select * from kategori ");
+echo"<p>categories:</p><p>";
+foreach($data->result_array() as $row){
+	$kategori = $row['nama_kat'];
+	$idk = $row['id_kat'];
+	
+	echo "<a href='$web/niriksha/sort_video/$idk'>$kategori      </a>";
+	}
+echo"</p>";
+?>
 					<div style="clear: both;">&nbsp;</div>
 				</div>

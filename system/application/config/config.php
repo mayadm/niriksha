@@ -11,12 +11,12 @@
 |	http://example.com/
 |
 */
-$config['base_url']	= "http://10.14.18.50/niriksha";
+$config['base_url']	= "http://127.0.0.1/niriksha";
 
-$config['ip'] = "10.14.18.50";
+$config['ip'] = "127.0.0.1";
 $config['video_path'] = "/var/www/video/"; 
 $config['upload_dir'] = "/var/www/uploads/";
-$config['upload_url'] = "http://10.14.18.50/uploads";
+$config['upload_url'] = "http://127.0.0.1/uploads";
 
 /*
 |--------------------------------------------------------------------------
@@ -330,6 +330,6 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 $config['softname'] = "Niriksha";
-$config['slogan'] = "live streaming, video sharing, conference";
+$config['slogan'] = "Video Learning and Monitoring Portal";
 /* End of file config.php */
 /* Location: ./system/application/config/config.php */

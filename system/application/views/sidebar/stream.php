@@ -1,3 +1,3 @@
 <div>
-  <srong>Ini side bar Steam</strong>
+  <srong></strong>
 </div>

@@ -41,16 +41,17 @@
 			<?php $now = $this->uri->segment(2);?>
 				<ul>
 					<li <?php if ($now == ""){ echo "class=\"current_page_item\"";} ?> ><a href="<?php echo site_url()?>/niriksha">Home</a></li>
-					<li <?php if ($now == "stream"){ echo "class=\"current_page_item\"";} ?> ><a href="<?php echo site_url()?>/niriksha/stream">Stream</a></li>
 					<li <?php if ($now == "video"){ echo "class=\"current_page_item\"";} ?> ><a href="<?php echo site_url()?>/niriksha/video">Video</a></li>
-					<li <?php if ($now == "conference"){ echo "class=\"current_page_item\"";} ?> ><a href="<?php echo site_url()?>/niriksha/conference">Conference</a></li>
+					<!--<li <?php if ($now == "conference"){ echo "class=\"current_page_item\"";} ?> ><a href="<?php echo site_url()?>/niriksha/conference">Conference</a></li> -->
+					<li <?php if ($now == "stream"){ echo "class=\"current_page_item\"";} ?> ><a href="<?php echo site_url()?>/niriksha/stream">Stream</a></li>
+					<li <?php if ($now == "faq"){ echo "class=\"current_page_item\"";} ?> ><a href="<?php echo site_url()?>/niriksha/faq">FAQ</a></li>
 					<li <?php if ($now == "about"){ echo "class=\"current_page_item\"";} ?> ><a href="<?php echo site_url()?>/niriksha/about">About</a></li>
 					<?php
 					   $user = $this->session->userdata('username');
 					   $url = site_url();
-					   if ($user != ""){
-					   echo "<li ><a href=\"$url/niriksha/logout\">Logout</a></li>";
-					   }else echo "";
+                                           if ($user != ""){
+					     echo "<li ><a href=\"$url/niriksha/logout\">Logout</a></li>";
+                                 	   }else echo "";
 					?>
 				</ul>
 			</div>

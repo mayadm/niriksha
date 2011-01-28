@@ -24,9 +24,26 @@ class Niriksha extends Controller {
 		$this->load->view('footer');
 	}
 	
+	function faq()
+	{
+		$this->load->view('header');
+		$this->load->view('faq');
+		$this->load->view('sidebar');
+		$this->load->view('footer');
+	}
+	
+	function sort_video($id)
+	{
+		$data['id'] = $id;
+		$this->load->view('header');
+		$this->load->view('sort',$data);
+		$this->load->view('sidebar');
+		$this->load->view('footer');
+	}
+	
 	function video()
 	{
-		$this->system_user->check_session('video');
+		//$this->system_user->check_session('video');
 		$this->load->view('header');
 		$this->load->view('video');
 		//$this->load->view('sidebar');
@@ -112,6 +129,24 @@ class Niriksha extends Controller {
 	$site = site_url();
 	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/delete_div/$id\" method=\"POST\" id=\"del_div\">";
 	echo "Are you sure want to delete this division? <br/><br/>";
+	echo "</form></p>";
+	}
+	
+	function edit_cat($id){
+	$site = site_url();
+	$this->db->reconnect();
+	$query = $this->db->query("select * from kategori where id_kat=$id");
+	$row = $query->row_array();
+	$nama_cat = $row['nama_kat'];
+	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/edit_cat/$id\" method=\"POST\" id=\"editcat\">";
+	echo "<input type=\"text\" name=\"new_cat\" value=\"$nama_cat\"";
+	echo "</form></p>";
+	}
+	
+	function delete_cat($id){
+	$site = site_url();
+	echo "<p align=\"center\"><form action=\"$site/lib_niriksha/delete_cat/$id\" method=\"POST\" id=\"del_cat\">";
+	echo "Are you sure want to delete this category? <br/><br/>";
 	echo "</form></p>";
 	}
 	

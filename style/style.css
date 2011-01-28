@@ -412,8 +412,8 @@ a:hover {
      text-align: center;
 }
 .perlu td{
-   color: #fff;
-   background: #000;
+   color: #000;
+   background: #fff;
 }
 
 .jPaginate{

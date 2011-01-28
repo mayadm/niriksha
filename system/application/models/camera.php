@@ -17,7 +17,11 @@ class Camera extends Model {
         $id = $row['c.id_conf'];
         $ip = $row['c.ip'];
         $port = $row['c.port'];
-        $flv_port=$port+$id;
+        if ($port == 80){
+        $nguk = $port+$id;
+        $flv_port="80$nguk";
+        }else {
+        $flv_port=$port+$id;}
         $sp = $row['c.share_point'];
         echo "<div class=\"post\">\n";
         echo "<h2 class=\"title\">\n";

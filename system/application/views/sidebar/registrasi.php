@@ -1,3 +1,3 @@
 <div>
-  <srong>Ini side bar Conference</strong>
+  <srong></strong>
 </div>

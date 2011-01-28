@@ -97,6 +97,13 @@ class Lib_niriksha extends Controller {
 	   redirect("/niriksha/profile/");
 	}
 	
+	function add_category(){
+	   $kategori = $this->input->post('category');
+	   $this->db->reconnect();
+	   $this->db->query("insert into kategori(nama_kat) values('$kategori')");	
+	   redirect("/niriksha/profile/");
+	}
+	
 	function add_position(){
 	   $jabatan = $this->input->post('jabatan');
 	   $this->db->reconnect();
@@ -134,6 +141,18 @@ class Lib_niriksha extends Controller {
 	
 	function delete_pos($id){
 	 $this->db->query("delete from jabatan where id_jab=$id");	
+	 redirect("/niriksha/profile/");
+	 }
+	 
+	  function edit_cat($id){
+	   $kategori = $this->input->post('new_cat');
+	   $this->db->reconnect();
+	   $this->db->query("update kategori set nama_kat='$kategori' where id_kat=$id");	
+	   redirect("/niriksha/profile/");
+	}
+	
+	function delete_cat($id){
+	 $this->db->query("delete from kategori where id_kat=$id");	
 	 redirect("/niriksha/profile/");
 	 }
 	 
@@ -202,19 +221,33 @@ class Lib_niriksha extends Controller {
 	 flush(); @ob_flush();
 	 set_time_limit(0);
 	 ignore_user_abort(0);
-	 shell_exec("cvlc http://$ip:$port/$sp.asf --syslog --sout '#transcode{vcodec=FLV1}:std{access=http,dst=$ip_server:$flv_port/$sp.flv}'&");	  
+	 //shell_exec("cvlc http://$ip:$port/$sp --syslog --sout '#transcode{vcodec=FLV1}:std{access=http,dst=$ip_server:$flv_port/$sp.flv}'&");	  
+	shell_exec("cvlc v4l2:///dev/video0 --syslog --sout '#transcode{vcodec=FLV1}:std{access=http,dst=$ip_server:$flv_port/$sp.flv}'&");	 
 	 }
 	 
 	 function startrec($id){
+         $now = getdate();
+         //$now2= mdate();
+	$tgl=$now['date'];
+         $day = $now['weekday'];
+         $mon = $now['month'];
+         $year = $now['year'];
+         $min = $now['minutes']; 
+         $hour = $now['hours']; 
 	 $this->db->reconnect();
-     $video_path = $this->config->item('video_path');
-     $server_ip = $this->config->item('ip');	 
+         $video_path = $this->config->item('video_path');
+         $file = "$video_path/$id--$tgl-$day-$mon-$year-$hour-$min.flv";
+         $server_ip = $this->config->item('ip');	 
 	 $query = $this->db->query("select * from camconfig where id_conf = $id");
 	 $row = $query->row_array();
-	 $ip = $row['ip'];
+	 $ip = $this->config->item('ip');
 	 $port = $row['port'];
+          if ($port == 80 ){
+		  $nguk = $port+$id;
+		  $flv_port = "80$nguk";
+		  }else $flv_port = $port+$id;
 	 $sp = $row['share_point'];	
-     shell_exec("wget -c -P $video_path http://$ip:$port/$sp.flv > /dev/null & ");
+     shell_exec("wget -c -O $file http://$ip:$flv_port/$sp.flv > /dev/null & ");
      redirect("/niriksha/profile/");
 	 }
 	 
@@ -224,11 +257,16 @@ class Lib_niriksha extends Controller {
      $server_ip = $this->config->item('ip');	 
 	 $query = $this->db->query("select * from camconfig where id_conf = $id");
 	 $row = $query->row_array();
-	 $ip = $row['ip'];
 	 $port = $row['port'];
+         if ($port == 80 ){
+		  $nguk = $port+$id;
+		  $flv_port = "80$nguk";
+		  }else $flv_port = $port+$id;
 	 $sp = $row['share_point'];	
-	 $pid = shell_exec("ps ax | grep -m 1 \"wget -c -P $video_path http://$server_ip:$port/$sp.flv\" | cut -d\" \" -f 1");
-     shell_exec("kill -9 $pid");
+	 //$pid = shell_exec("ps ax | grep wget | grep \"http://$server_ip:$flv_port/$sp.flv\" | cut -d\" \" -f1 | grep -v grep");
+	 $pid = "ps ax | grep wget | grep \"http://$server_ip:$flv_port/$sp.flv\" | cut -d\" \" -f1 | grep -v grep";
+     //shell_exec("kill -9 $pid");
+     shell_exec("killall vlc");
      redirect("/niriksha/profile/");	 
      }
      
@@ -236,6 +274,7 @@ class Lib_niriksha extends Controller {
 	 $id = $this->input->post('id_user'); 
 	 $title = $this->input->post('title');
 	 $desc = $this->input->post('desc');
+	 $kat = $this->input->post('category');
 	 $seting = $this->input->post('seting');
 	 $upload_dir = $this->config->item('upload_dir');
 	 
@@ -255,7 +294,7 @@ class Lib_niriksha extends Controller {
 		 shell_exec("mv \"$upload_dir/$raw_name.flv\" \"$upload_dir/$file_name.flv\"");
 		 shell_exec("ffmpeg -i $upload_dir/$file_name.flv -s cif -r 1 -ss 00:00:20 -t 1 -f image2 $upload_dir/snapshot/$file_name.jpg");
 		 $this->db->reconnect();
-		 $this->db->query("insert into upload(judul,deskripsi,dir,seting,id_user) values('$title','$desc','$file_name','$seting','$id')");
+		 $this->db->query("insert into upload(judul,deskripsi,dir,seting,id_user,id_kat) values('$title','$desc','$file_name','$seting','$id',$kat)");
 		 redirect('niriksha/video');
 		}
      }
@@ -264,8 +303,9 @@ class Lib_niriksha extends Controller {
 		 $title = $this->input->post('title');
 		 $desc = $this->input->post('desc');
 		 $perm = $this->input->post('perm');
+		 $idk = $this->input->post('category');
 		 $this->db->reconnect();
-		 $this->db->query("update upload set judul='$title',deskripsi='$desc',seting=$perm where id_upload=$id");
+		 $this->db->query("update upload set judul='$title',deskripsi='$desc',seting=$perm, id_kat=$idk where id_upload=$id");
 		 redirect("niriksha/tampil_video/$id");
 		 }
 	
